@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Assembly line: drone + SO-ARM101, two cells</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body { margin: 0; height: 100%; background: #0b0d10; overflow: hidden; font-family: system-ui, -apple-system, Segoe UI, sans-serif; color: #e8ecf1; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  #ui { position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+        background: linear-gradient(transparent, rgba(0,0,0,.65)); }
+  #ui button { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.25); border-radius: 6px; padding: 6px 11px; cursor: pointer; font-size: 13px; }
+  #ui button:hover, #ui button.on { background: rgba(255,170,60,.85); color: #111; border-color: transparent; }
+  #scrub { flex: 1 1 240px; min-width: 160px; }
+  #label { position: fixed; left: 18px; top: 14px; font-size: 22px; font-weight: 600; text-shadow: 0 1px 6px rgba(0,0,0,.8); }
+  #sub { position: fixed; left: 18px; top: 46px; font-size: 13px; opacity: .8; text-shadow: 0 1px 4px rgba(0,0,0,.8); }
+  #loading { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; background: #0b0d10; }
+  .hide #ui, .hide #sub { display: none; }
+</style>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/addons/" } }</script>
+</head>
+<body>
+<div id="loading">Loading the factory...</div>
+<div id="label"></div><div id="sub"></div>
+<canvas id="c"></canvas>
+<div id="ui">
+  <button id="play">Pause</button>
+  <button data-speed="1">1x</button><button data-speed="2">2x</button><button data-speed="4" class="on">4x</button><button data-speed="8">8x</button>
+  <input id="scrub" type="range" min="0" max="1000" value="0">
+  <button data-cam="wide">Wide</button><button data-cam="cell1">Cell 1</button><button data-cam="cell2">Cell 2</button>
+  <button data-cam="top">Top</button><button data-cam="auto" class="on">Auto</button>
+  <button id="hide">Hide UI (H)</button>
+</div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
