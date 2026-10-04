@@ -5,9 +5,9 @@ W,Hm=600,4300; k=362/600; vh=844; lead=.62*vh; F=Hm*k; MY=2900
 PM=round((MY*k-lead)/(F-vh)*100,1); END=98
 def pct(y): return max(0,(y*k-lead)/(F-vh)*100)
 LANES={
- 'l1':'M150 0C150 120 450 150 450 290C450 430 200 450 200 590C200 690 190 720 190 800V1500C190 1600 130 1620 130 1700V1960C130 2400 300 2500 300 2900',
+ 'l1':'M150 0C150 120 450 150 450 290C450 430 200 450 200 590C200 690 190 720 190 800V1250C190 1330 130 1370 130 1450V1960C130 2400 300 2500 300 2900',
  'l2':'M300 0C300 110 120 150 120 280C120 420 430 440 430 580C430 690 300 730 300 800V2900',
- 'l3':'M450 0C450 140 300 170 300 310C300 440 520 470 520 590C520 700 410 730 410 800V1500C410 1600 470 1620 470 1700V1960C470 2400 300 2500 300 2900'}
+ 'l3':'M450 0C450 140 300 170 300 310C300 440 520 470 520 590C520 700 410 730 410 800V1250C410 1330 470 1370 470 1450V1960C470 2400 300 2500 300 2900'}
 PRE={'p-a':'M420 -560C420 -300 150 -250 150 0','p-b':'M520 -420C520 -200 300 -240 300 0','p-c':'M350 -250C350 -120 450 -140 450 0'}
 MADE='M300 2900V3200C300 3380 450 3500 450 3720'
 # ---- markup
@@ -25,7 +25,7 @@ for P_,pre in PRE.items():
     lane={'p-a':'l1','p-b':'l2','p-c':'l3'}[P_]
     s=re.sub(rf'(class="part {P_}" style="offset-path:path\(\')[^\']*\'',lambda mm:mm.group(1)+pre+LANES[lane][LANES[lane].index('C'):]+"'",s)
 s=re.sub(r"(class=\"made\" style=\"offset-path:path\(')[^']*'",lambda mm:mm.group(1)+MADE+"'",s)
-cx=iter([(-50,-830),(-60,-830),(-70,-830)])
+cx=iter([(-50,-1010),(-60,-1010),(-70,-1010)])
 s=re.sub(r'<g class="die" transform="[^"]*"',lambda mm:'<g class="die" transform="translate(%d %d)"'%next(cx),s)
 s=re.sub(r'(<g class="arm a\d[^"]*" style="[^"]*" transform=")[^"]*"',lambda mm:mm.group(1)+f'translate(-400 {MY-4200-90})"',s)
 h=h.replace(d_svg,d_svg+s,1)
@@ -81,7 +81,7 @@ for i in range(N+1):
 kfs+='}\n'
 Y0=(0-vh+lead)/k; Y1=(F-vh+lead)/k
 kfs+=f'@keyframes trail-m {{ from {{ transform: translateY({Y0:.1f}px); }} to {{ transform: translateY({Y1:.1f}px); }} }}\n'
-caps={'c1':(850,1850),'c2':(1900,2400),'c3':(2450,3050)}
+caps={'c1':(850,1670),'c2':(1720,2300),'c3':(2350,3050)}
 capcss=''.join(f'  .line-m ~ .say.{n} {{ animation-range: contain {pct(a):.1f}% contain {pct(b):.1f}%; }}\n' for n,(a,b) in caps.items())
 block=f'''/* MOBILE-START (generated) */
 .line-m {{ display: none; }}
@@ -117,9 +117,9 @@ block=f'''/* MOBILE-START (generated) */
       padding-top: 48px; background: linear-gradient(to bottom, transparent, var(--bg) 44px);
       animation: cap linear both; animation-timeline: --fl;
     }}
-    .say.c1 {{ animation-range: contain -12% contain {pct(1850):.1f}%; }}
-    .say.c2 {{ animation-range: contain {pct(1900):.1f}% contain {pct(2400):.1f}%; }}
-    .say.c3 {{ animation-range: contain {pct(2450):.1f}% contain {pct(3050):.1f}%; }}
+    .say.c1 {{ animation-range: contain -12% contain {pct(1670):.1f}%; }}
+    .say.c2 {{ animation-range: contain {pct(1720):.1f}% contain {pct(2300):.1f}%; }}
+    .say.c3 {{ animation-range: contain {pct(2350):.1f}% contain {pct(3050):.1f}%; }}
     .say .fact {{ font-size: 0.9rem; margin-top: 12px; }}
   }}
 }}
