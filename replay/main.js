@@ -93,14 +93,8 @@ function goCam(name) {
 function setGoal(g) { if (!g || g === camGoal) return; camFrom.pos.copy(camera.position); camFrom.target.copy(controls.target); camGoal = g; camBlend = 0; }
 camera.position.copy(presets.overview.pos); controls.target.copy(presets.overview.target);
 
-// auto director: wide shots while the belt moves and in between, cell close-ups while a cell works
-function autoShot(frame) {
-  const L = meta.labels; let cur = 'Cycle', k = -1;
-  for (let i = 0; i < L.length; i++) if (L[i][0] <= frame) { cur = L[i][1]; k = i; }
-  if (cur.startsWith('Belt')) return presets.overview;
-  const t0 = k >= 0 ? L[k][0] : 0, span = 30 * 11, ph = (((Math.floor((frame - t0) / span)) % 4) + 4) % 4;
-  return [presets.overview, presets.cell1, presets.overview, presets.cell2][ph];
-}
+// auto director: one steady wide shot (no cuts to individual cells; the cell buttons are there for close-ups)
+function autoShot() { return presets.overview; }
 
 // transport
 let frame = 0, playing = true, speed = 4, last = performance.now(), scrubbing = false;

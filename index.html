@@ -36,11 +36,6 @@
       <h1>Send us the CAD.<br>Receive the assembled product.</h1>
       <p>Novara plans and runs robotic assembly directly from your design files.</p>
     </div>
-    <dl class="hero-stats">
-      <div><dt>2</dt><dd>Products<br>assembled</dd></div>
-      <div><dt>4</dt><dd>Arms, one<br>line</dd></div>
-      <div><dt>0.09<small>mm</small></dt><dd>Placement<br>error</dd></div>
-    </dl>
     <a class="btn ghost" href="#approach">Discover more <span aria-hidden="true">&darr;</span></a>
   </section>
 
@@ -56,6 +51,7 @@
             <p class="mono-cap">Kit in</p>
             <div class="row"><span>Drone</span><span class="mono">parts + fixtures</span></div>
             <div class="row"><span>SO-ARM101</span><span class="mono">parts + fixtures</span></div>
+            <div class="row"><span>Pillow-block bearing</span><span class="mono">parts + fixtures</span></div>
             <div class="row dim"><span>Your product</span><span class="mono">drop in the CAD</span></div>
           </div>
           <div class="copy"><h3><span class="num">01</span> CAD in</h3><p>Give us the part geometry. That is the only input.</p></div>
@@ -76,9 +72,9 @@
         <article class="step">
           <div class="mock">
             <p class="mono-cap">Cell run</p>
-            <div class="row"><span>Arms working together</span><span class="mono">4</span></div>
-            <div class="row"><span>Cells on the line</span><span class="mono">2</span></div>
-            <div class="row"><span>Final pose vs. reference</span><span class="mono accent">&lt; 0.1 mm</span></div>
+            <div class="row"><span>Arms working together</span><span class="mono">concurrent</span></div>
+            <div class="row"><span>Cells on the line</span><span class="mono">one belt</span></div>
+            <div class="row"><span>Final pose vs. reference</span><span class="mono accent">checked</span></div>
           </div>
           <div class="copy"><h3><span class="num">03</span> Assemble</h3><p>Arms assemble, tighten and hand the finished product off down the line. You receive it assembled.</p></div>
         </article>
@@ -92,9 +88,9 @@
       <h2>Watch the line run.</h2>
       <p class="lede">The full run, recorded from the physics simulation. Orbit, zoom, and cut between the cells.</p>
       <div class="replay" id="replay-frame">
-        <img src="./assets/hero-poster.jpg" alt="Factory line with four arms assembling a drone and a robot arm">
+        <img src="./assets/hero-poster.jpg" alt="Factory line with six arms assembling a drone, a robot arm and a bearing">
         <button class="btn" id="launch" type="button">Launch interactive replay</button>
-        <p class="mono-cap hint">Loads about 28 MB</p>
+        <p class="mono-cap hint">Loads about 36 MB</p>
       </div>
     </div>
   </section>
@@ -124,6 +120,7 @@
     <div>
       <p class="mono-cap">Company</p>
       <a href="https://www.linkedin.com/company/novara-robotics" target="_blank" rel="noopener">LinkedIn</a>
+      
     </div>
   </div>
 </footer>
