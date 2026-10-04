@@ -736,3 +736,459 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 .legal li { margin-bottom: 7px; }
 .legal a { color: var(--accent); text-underline-offset: 3px; }
 .legal .meta { font-size: 0.82rem; margin: 0 0 6px; }
+
+
+
+/* MOBILE-START (generated) */
+.line-m { display: none; }
+@media (max-width: 900px) {
+  .line-d { display: none; }
+  .line-m { display: block; }
+  .hero { min-height: 60dvh; }
+  .line-m .part .fade { transform: scale(1.3); }
+  .line-m .made .bob > g { transform: scale(1.3) translate(0, 22px); }
+  .say.closing { position: absolute; top: var(--at-m); transform: translateY(-50%); left: 0; width: 100%; max-width: none; margin: 0; }
+  .say.closing h1 { font-size: clamp(2.3rem, 11vw, 3.4rem); }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .line-m .l1 { animation-name: lane-m-1; animation-range: cover 0% contain 70.1%; }
+    .line-m .l2 { animation-name: lane-m-2; animation-range: cover 0% contain 70.1%; }
+    .line-m .l3 { animation-name: lane-m-3; animation-range: cover 0% contain 70.1%; }
+    .line-m .part { animation-name: ride-a-m, calm-m; animation-range: cover 0% contain 70.1%, cover 0% cover 4%; }
+    .line-m .p-b { animation-name: ride-b-m, calm-m; }
+    .line-m .p-c { animation-name: ride-c-m, calm-m; }
+    .line-m .part .shape { animation-range: contain 0% contain 4%; }
+    .line-m .part .piece { animation-range: contain 66.1% contain 70.1%; }
+    .line-m .part .fade { animation-range: contain 70.1% contain 70.3%; }
+    .line-m .made {
+      animation-name: ride-out-m, arrive, walk-on, pace-on;
+      animation-range: contain 70.1% contain 98%, contain 70.1% contain 70.3%, contain 70.1% contain 71.7%, contain 93% contain 97%;
+    }
+    .line-m .lanes { mask: url(#trail-m); }
+    .line-m .trail { animation-name: trail-m; }
+    /* on a phone the captions sit at the bottom of the screen and change as the parts move on */
+    .say.c1, .say.c2, .say.c3 {
+      position: fixed; top: auto; bottom: 22px; left: 20px; right: 20px; width: auto; margin: 0; transform: none;
+      padding-top: 48px; background: linear-gradient(to bottom, transparent, var(--bg) 44px);
+      animation: cap linear both; animation-timeline: --fl;
+    }
+    .say.c1 { animation-range: contain -12% contain 20.1%; }
+    .say.c2 { animation-range: contain 21.8% contain 39.0%; }
+    .say.c3 { animation-range: contain 47.7% contain 75.2%; }
+    .say .fact { font-size: 0.9rem; margin-top: 12px; }
+  }
+}
+@keyframes calm-m { from { --amp: 0.5; } to { --amp: 0; } }
+@keyframes cap {
+  0% { opacity: 0; transform: translateY(14px); }
+  10%, 90% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes ride-a-m {
+  0.00% { offset-distance: 0.790%; animation-timing-function: linear; }
+  1.67% { offset-distance: 2.338%; animation-timing-function: linear; }
+  3.33% { offset-distance: 3.936%; animation-timing-function: linear; }
+  5.00% { offset-distance: 5.634%; animation-timing-function: linear; }
+  6.67% { offset-distance: 7.554%; animation-timing-function: linear; }
+  8.33% { offset-distance: 9.548%; animation-timing-function: linear; }
+  10.00% { offset-distance: 11.450%; animation-timing-function: linear; }
+  11.67% { offset-distance: 13.199%; animation-timing-function: linear; }
+  13.33% { offset-distance: 14.770%; animation-timing-function: linear; }
+  15.00% { offset-distance: 16.298%; animation-timing-function: linear; }
+  16.67% { offset-distance: 17.828%; animation-timing-function: linear; }
+  18.33% { offset-distance: 20.109%; animation-timing-function: linear; }
+  20.00% { offset-distance: 23.244%; animation-timing-function: linear; }
+  21.67% { offset-distance: 25.840%; animation-timing-function: linear; }
+  23.33% { offset-distance: 27.587%; animation-timing-function: linear; }
+  25.00% { offset-distance: 29.101%; animation-timing-function: linear; }
+  26.67% { offset-distance: 30.978%; animation-timing-function: linear; }
+  28.33% { offset-distance: 33.521%; animation-timing-function: linear; }
+  30.00% { offset-distance: 36.106%; animation-timing-function: linear; }
+  31.67% { offset-distance: 37.924%; animation-timing-function: linear; }
+  33.33% { offset-distance: 39.400%; animation-timing-function: linear; }
+  35.00% { offset-distance: 40.910%; animation-timing-function: linear; }
+  36.67% { offset-distance: 42.404%; animation-timing-function: linear; }
+  38.33% { offset-distance: 43.910%; animation-timing-function: linear; }
+  40.00% { offset-distance: 45.399%; animation-timing-function: linear; }
+  41.67% { offset-distance: 47.228%; animation-timing-function: linear; }
+  43.33% { offset-distance: 48.691%; animation-timing-function: linear; }
+  45.00% { offset-distance: 50.154%; animation-timing-function: linear; }
+  46.67% { offset-distance: 51.617%; animation-timing-function: linear; }
+  48.33% { offset-distance: 53.081%; animation-timing-function: linear; }
+  50.00% { offset-distance: 54.544%; animation-timing-function: linear; }
+  51.67% { offset-distance: 56.007%; animation-timing-function: linear; }
+  53.33% { offset-distance: 57.470%; animation-timing-function: linear; }
+  55.00% { offset-distance: 58.933%; animation-timing-function: linear; }
+  56.67% { offset-distance: 60.396%; animation-timing-function: linear; }
+  58.33% { offset-distance: 61.859%; animation-timing-function: linear; }
+  60.00% { offset-distance: 63.351%; animation-timing-function: linear; }
+  61.67% { offset-distance: 64.890%; animation-timing-function: linear; }
+  63.33% { offset-distance: 66.586%; animation-timing-function: linear; }
+  65.00% { offset-distance: 68.118%; animation-timing-function: linear; }
+  66.67% { offset-distance: 69.613%; animation-timing-function: linear; }
+  68.33% { offset-distance: 71.107%; animation-timing-function: linear; }
+  70.00% { offset-distance: 72.602%; animation-timing-function: linear; }
+  71.67% { offset-distance: 74.096%; animation-timing-function: linear; }
+  73.33% { offset-distance: 75.591%; animation-timing-function: linear; }
+  75.00% { offset-distance: 77.202%; animation-timing-function: linear; }
+  76.67% { offset-distance: 78.701%; animation-timing-function: linear; }
+  78.33% { offset-distance: 80.102%; animation-timing-function: linear; }
+  80.00% { offset-distance: 81.674%; animation-timing-function: linear; }
+  81.67% { offset-distance: 83.149%; animation-timing-function: linear; }
+  83.33% { offset-distance: 84.775%; animation-timing-function: linear; }
+  85.00% { offset-distance: 86.330%; animation-timing-function: linear; }
+  86.67% { offset-distance: 87.843%; animation-timing-function: linear; }
+  88.33% { offset-distance: 89.448%; animation-timing-function: linear; }
+  90.00% { offset-distance: 90.960%; animation-timing-function: linear; }
+  91.67% { offset-distance: 92.517%; animation-timing-function: linear; }
+  93.33% { offset-distance: 94.027%; animation-timing-function: linear; }
+  95.00% { offset-distance: 95.630%; animation-timing-function: linear; }
+  96.67% { offset-distance: 97.080%; animation-timing-function: linear; }
+  98.33% { offset-distance: 98.635%; animation-timing-function: linear; }
+  100.00% { offset-distance: 100.000%; animation-timing-function: linear; }
+}
+@keyframes ride-b-m {
+  0.00% { offset-distance: 0.000%; animation-timing-function: linear; }
+  1.67% { offset-distance: 0.000%; animation-timing-function: linear; }
+  3.33% { offset-distance: 0.090%; animation-timing-function: linear; }
+  5.00% { offset-distance: 1.692%; animation-timing-function: linear; }
+  6.67% { offset-distance: 3.409%; animation-timing-function: linear; }
+  8.33% { offset-distance: 5.442%; animation-timing-function: linear; }
+  10.00% { offset-distance: 7.771%; animation-timing-function: linear; }
+  11.67% { offset-distance: 9.822%; animation-timing-function: linear; }
+  13.33% { offset-distance: 11.514%; animation-timing-function: linear; }
+  15.00% { offset-distance: 13.130%; animation-timing-function: linear; }
+  16.67% { offset-distance: 14.675%; animation-timing-function: linear; }
+  18.33% { offset-distance: 16.634%; animation-timing-function: linear; }
+  20.00% { offset-distance: 18.982%; animation-timing-function: linear; }
+  21.67% { offset-distance: 21.014%; animation-timing-function: linear; }
+  23.33% { offset-distance: 22.669%; animation-timing-function: linear; }
+  25.00% { offset-distance: 24.294%; animation-timing-function: linear; }
+  26.67% { offset-distance: 26.564%; animation-timing-function: linear; }
+  28.33% { offset-distance: 29.853%; animation-timing-function: linear; }
+  30.00% { offset-distance: 32.786%; animation-timing-function: linear; }
+  31.67% { offset-distance: 34.683%; animation-timing-function: linear; }
+  33.33% { offset-distance: 36.283%; animation-timing-function: linear; }
+  35.00% { offset-distance: 38.049%; animation-timing-function: linear; }
+  36.67% { offset-distance: 40.198%; animation-timing-function: linear; }
+  38.33% { offset-distance: 42.123%; animation-timing-function: linear; }
+  40.00% { offset-distance: 43.696%; animation-timing-function: linear; }
+  41.67% { offset-distance: 45.994%; animation-timing-function: linear; }
+  43.33% { offset-distance: 47.143%; animation-timing-function: linear; }
+  45.00% { offset-distance: 49.441%; animation-timing-function: linear; }
+  46.67% { offset-distance: 50.590%; animation-timing-function: linear; }
+  48.33% { offset-distance: 51.739%; animation-timing-function: linear; }
+  50.00% { offset-distance: 54.037%; animation-timing-function: linear; }
+  51.67% { offset-distance: 55.186%; animation-timing-function: linear; }
+  53.33% { offset-distance: 56.335%; animation-timing-function: linear; }
+  55.00% { offset-distance: 58.634%; animation-timing-function: linear; }
+  56.67% { offset-distance: 59.783%; animation-timing-function: linear; }
+  58.33% { offset-distance: 60.932%; animation-timing-function: linear; }
+  60.00% { offset-distance: 63.230%; animation-timing-function: linear; }
+  61.67% { offset-distance: 64.379%; animation-timing-function: linear; }
+  63.33% { offset-distance: 66.677%; animation-timing-function: linear; }
+  65.00% { offset-distance: 67.826%; animation-timing-function: linear; }
+  66.67% { offset-distance: 68.975%; animation-timing-function: linear; }
+  68.33% { offset-distance: 71.273%; animation-timing-function: linear; }
+  70.00% { offset-distance: 72.422%; animation-timing-function: linear; }
+  71.67% { offset-distance: 73.571%; animation-timing-function: linear; }
+  73.33% { offset-distance: 75.870%; animation-timing-function: linear; }
+  75.00% { offset-distance: 77.019%; animation-timing-function: linear; }
+  76.67% { offset-distance: 78.168%; animation-timing-function: linear; }
+  78.33% { offset-distance: 80.466%; animation-timing-function: linear; }
+  80.00% { offset-distance: 81.615%; animation-timing-function: linear; }
+  81.67% { offset-distance: 83.913%; animation-timing-function: linear; }
+  83.33% { offset-distance: 85.062%; animation-timing-function: linear; }
+  85.00% { offset-distance: 86.211%; animation-timing-function: linear; }
+  86.67% { offset-distance: 88.509%; animation-timing-function: linear; }
+  88.33% { offset-distance: 89.658%; animation-timing-function: linear; }
+  90.00% { offset-distance: 90.807%; animation-timing-function: linear; }
+  91.67% { offset-distance: 93.106%; animation-timing-function: linear; }
+  93.33% { offset-distance: 94.255%; animation-timing-function: linear; }
+  95.00% { offset-distance: 95.404%; animation-timing-function: linear; }
+  96.67% { offset-distance: 97.702%; animation-timing-function: linear; }
+  98.33% { offset-distance: 98.851%; animation-timing-function: linear; }
+  100.00% { offset-distance: 100.000%; animation-timing-function: linear; }
+}
+@keyframes ride-c-m {
+  0.00% { offset-distance: 0.000%; animation-timing-function: linear; }
+  1.67% { offset-distance: 0.000%; animation-timing-function: linear; }
+  3.33% { offset-distance: 0.000%; animation-timing-function: linear; }
+  5.00% { offset-distance: 0.000%; animation-timing-function: linear; }
+  6.67% { offset-distance: 0.000%; animation-timing-function: linear; }
+  8.33% { offset-distance: 0.170%; animation-timing-function: linear; }
+  10.00% { offset-distance: 1.886%; animation-timing-function: linear; }
+  11.67% { offset-distance: 3.929%; animation-timing-function: linear; }
+  13.33% { offset-distance: 5.971%; animation-timing-function: linear; }
+  15.00% { offset-distance: 7.726%; animation-timing-function: linear; }
+  16.67% { offset-distance: 9.418%; animation-timing-function: linear; }
+  18.33% { offset-distance: 11.277%; animation-timing-function: linear; }
+  20.00% { offset-distance: 13.437%; animation-timing-function: linear; }
+  21.67% { offset-distance: 15.647%; animation-timing-function: linear; }
+  23.33% { offset-distance: 17.511%; animation-timing-function: linear; }
+  25.00% { offset-distance: 19.176%; animation-timing-function: linear; }
+  26.67% { offset-distance: 21.088%; animation-timing-function: linear; }
+  28.33% { offset-distance: 23.665%; animation-timing-function: linear; }
+  30.00% { offset-distance: 26.476%; animation-timing-function: linear; }
+  31.67% { offset-distance: 28.651%; animation-timing-function: linear; }
+  33.33% { offset-distance: 30.362%; animation-timing-function: linear; }
+  35.00% { offset-distance: 32.190%; animation-timing-function: linear; }
+  36.67% { offset-distance: 34.388%; animation-timing-function: linear; }
+  38.33% { offset-distance: 36.431%; animation-timing-function: linear; }
+  40.00% { offset-distance: 38.126%; animation-timing-function: linear; }
+  41.67% { offset-distance: 40.199%; animation-timing-function: linear; }
+  43.33% { offset-distance: 41.857%; animation-timing-function: linear; }
+  45.00% { offset-distance: 43.515%; animation-timing-function: linear; }
+  46.67% { offset-distance: 45.173%; animation-timing-function: linear; }
+  48.33% { offset-distance: 46.831%; animation-timing-function: linear; }
+  50.00% { offset-distance: 48.489%; animation-timing-function: linear; }
+  51.67% { offset-distance: 50.147%; animation-timing-function: linear; }
+  53.33% { offset-distance: 51.805%; animation-timing-function: linear; }
+  55.00% { offset-distance: 53.463%; animation-timing-function: linear; }
+  56.67% { offset-distance: 55.121%; animation-timing-function: linear; }
+  58.33% { offset-distance: 56.779%; animation-timing-function: linear; }
+  60.00% { offset-distance: 58.470%; animation-timing-function: linear; }
+  61.67% { offset-distance: 60.213%; animation-timing-function: linear; }
+  63.33% { offset-distance: 62.135%; animation-timing-function: linear; }
+  65.00% { offset-distance: 63.872%; animation-timing-function: linear; }
+  66.67% { offset-distance: 65.565%; animation-timing-function: linear; }
+  68.33% { offset-distance: 67.259%; animation-timing-function: linear; }
+  70.00% { offset-distance: 68.952%; animation-timing-function: linear; }
+  71.67% { offset-distance: 70.646%; animation-timing-function: linear; }
+  73.33% { offset-distance: 72.340%; animation-timing-function: linear; }
+  75.00% { offset-distance: 74.165%; animation-timing-function: linear; }
+  76.67% { offset-distance: 75.864%; animation-timing-function: linear; }
+  78.33% { offset-distance: 77.452%; animation-timing-function: linear; }
+  80.00% { offset-distance: 79.233%; animation-timing-function: linear; }
+  81.67% { offset-distance: 80.904%; animation-timing-function: linear; }
+  83.33% { offset-distance: 82.747%; animation-timing-function: linear; }
+  85.00% { offset-distance: 84.509%; animation-timing-function: linear; }
+  86.67% { offset-distance: 86.223%; animation-timing-function: linear; }
+  88.33% { offset-distance: 88.042%; animation-timing-function: linear; }
+  90.00% { offset-distance: 89.756%; animation-timing-function: linear; }
+  91.67% { offset-distance: 91.520%; animation-timing-function: linear; }
+  93.33% { offset-distance: 93.232%; animation-timing-function: linear; }
+  95.00% { offset-distance: 95.048%; animation-timing-function: linear; }
+  96.67% { offset-distance: 96.691%; animation-timing-function: linear; }
+  98.33% { offset-distance: 98.453%; animation-timing-function: linear; }
+  100.00% { offset-distance: 100.000%; animation-timing-function: linear; }
+}
+@keyframes lane-m-1 {
+  0.00% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  1.67% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  3.33% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  5.00% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  6.67% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  8.33% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  10.00% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  11.67% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  13.33% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  15.00% { stroke-dashoffset: 0.9851; animation-timing-function: linear; }
+  16.67% { stroke-dashoffset: 0.9567; animation-timing-function: linear; }
+  18.33% { stroke-dashoffset: 0.9197; animation-timing-function: linear; }
+  20.00% { stroke-dashoffset: 0.8888; animation-timing-function: linear; }
+  21.67% { stroke-dashoffset: 0.8679; animation-timing-function: linear; }
+  23.33% { stroke-dashoffset: 0.8498; animation-timing-function: linear; }
+  25.00% { stroke-dashoffset: 0.8271; animation-timing-function: linear; }
+  26.67% { stroke-dashoffset: 0.7958; animation-timing-function: linear; }
+  28.33% { stroke-dashoffset: 0.7656; animation-timing-function: linear; }
+  30.00% { stroke-dashoffset: 0.7445; animation-timing-function: linear; }
+  31.67% { stroke-dashoffset: 0.7261; animation-timing-function: linear; }
+  33.33% { stroke-dashoffset: 0.7083; animation-timing-function: linear; }
+  35.00% { stroke-dashoffset: 0.6905; animation-timing-function: linear; }
+  36.67% { stroke-dashoffset: 0.6725; animation-timing-function: linear; }
+  38.33% { stroke-dashoffset: 0.6510; animation-timing-function: linear; }
+  40.00% { stroke-dashoffset: 0.6334; animation-timing-function: linear; }
+  41.67% { stroke-dashoffset: 0.6158; animation-timing-function: linear; }
+  43.33% { stroke-dashoffset: 0.5983; animation-timing-function: linear; }
+  45.00% { stroke-dashoffset: 0.5807; animation-timing-function: linear; }
+  46.67% { stroke-dashoffset: 0.5632; animation-timing-function: linear; }
+  48.33% { stroke-dashoffset: 0.5456; animation-timing-function: linear; }
+  50.00% { stroke-dashoffset: 0.5280; animation-timing-function: linear; }
+  51.67% { stroke-dashoffset: 0.5105; animation-timing-function: linear; }
+  53.33% { stroke-dashoffset: 0.4929; animation-timing-function: linear; }
+  55.00% { stroke-dashoffset: 0.4710; animation-timing-function: linear; }
+  56.67% { stroke-dashoffset: 0.4534; animation-timing-function: linear; }
+  58.33% { stroke-dashoffset: 0.4391; animation-timing-function: linear; }
+  60.00% { stroke-dashoffset: 0.4202; animation-timing-function: linear; }
+  61.67% { stroke-dashoffset: 0.4002; animation-timing-function: linear; }
+  63.33% { stroke-dashoffset: 0.3810; animation-timing-function: linear; }
+  65.00% { stroke-dashoffset: 0.3631; animation-timing-function: linear; }
+  66.67% { stroke-dashoffset: 0.3452; animation-timing-function: linear; }
+  68.33% { stroke-dashoffset: 0.3272; animation-timing-function: linear; }
+  70.00% { stroke-dashoffset: 0.3093; animation-timing-function: linear; }
+  71.67% { stroke-dashoffset: 0.2910; animation-timing-function: linear; }
+  73.33% { stroke-dashoffset: 0.2736; animation-timing-function: linear; }
+  75.00% { stroke-dashoffset: 0.2556; animation-timing-function: linear; }
+  76.67% { stroke-dashoffset: 0.2372; animation-timing-function: linear; }
+  78.33% { stroke-dashoffset: 0.2200; animation-timing-function: linear; }
+  80.00% { stroke-dashoffset: 0.2008; animation-timing-function: linear; }
+  81.67% { stroke-dashoffset: 0.1827; animation-timing-function: linear; }
+  83.33% { stroke-dashoffset: 0.1641; animation-timing-function: linear; }
+  85.00% { stroke-dashoffset: 0.1446; animation-timing-function: linear; }
+  86.67% { stroke-dashoffset: 0.1267; animation-timing-function: linear; }
+  88.33% { stroke-dashoffset: 0.1072; animation-timing-function: linear; }
+  90.00% { stroke-dashoffset: 0.0885; animation-timing-function: linear; }
+  91.67% { stroke-dashoffset: 0.0702; animation-timing-function: linear; }
+  93.33% { stroke-dashoffset: 0.0525; animation-timing-function: linear; }
+  95.00% { stroke-dashoffset: 0.0334; animation-timing-function: linear; }
+  96.67% { stroke-dashoffset: 0.0164; animation-timing-function: linear; }
+  98.33% { stroke-dashoffset: 0.0000; animation-timing-function: linear; }
+  100.00% { stroke-dashoffset: 0.0000; animation-timing-function: linear; }
+}
+@keyframes lane-m-2 {
+  0.00% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  1.67% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  3.33% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  5.00% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  6.67% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  8.33% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  10.00% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  11.67% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  13.33% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  15.00% { stroke-dashoffset: 0.9856; animation-timing-function: linear; }
+  16.67% { stroke-dashoffset: 0.9623; animation-timing-function: linear; }
+  18.33% { stroke-dashoffset: 0.9356; animation-timing-function: linear; }
+  20.00% { stroke-dashoffset: 0.9122; animation-timing-function: linear; }
+  21.67% { stroke-dashoffset: 0.8935; animation-timing-function: linear; }
+  23.33% { stroke-dashoffset: 0.8741; animation-timing-function: linear; }
+  25.00% { stroke-dashoffset: 0.8476; animation-timing-function: linear; }
+  26.67% { stroke-dashoffset: 0.8094; animation-timing-function: linear; }
+  28.33% { stroke-dashoffset: 0.7765; animation-timing-function: linear; }
+  30.00% { stroke-dashoffset: 0.7540; animation-timing-function: linear; }
+  31.67% { stroke-dashoffset: 0.7358; animation-timing-function: linear; }
+  33.33% { stroke-dashoffset: 0.7154; animation-timing-function: linear; }
+  35.00% { stroke-dashoffset: 0.6902; animation-timing-function: linear; }
+  36.67% { stroke-dashoffset: 0.6682; animation-timing-function: linear; }
+  38.33% { stroke-dashoffset: 0.6377; animation-timing-function: linear; }
+  40.00% { stroke-dashoffset: 0.6245; animation-timing-function: linear; }
+  41.67% { stroke-dashoffset: 0.6112; animation-timing-function: linear; }
+  43.33% { stroke-dashoffset: 0.5846; animation-timing-function: linear; }
+  45.00% { stroke-dashoffset: 0.5713; animation-timing-function: linear; }
+  46.67% { stroke-dashoffset: 0.5580; animation-timing-function: linear; }
+  48.33% { stroke-dashoffset: 0.5315; animation-timing-function: linear; }
+  50.00% { stroke-dashoffset: 0.5182; animation-timing-function: linear; }
+  51.67% { stroke-dashoffset: 0.5049; animation-timing-function: linear; }
+  53.33% { stroke-dashoffset: 0.4783; animation-timing-function: linear; }
+  55.00% { stroke-dashoffset: 0.4650; animation-timing-function: linear; }
+  56.67% { stroke-dashoffset: 0.4384; animation-timing-function: linear; }
+  58.33% { stroke-dashoffset: 0.4252; animation-timing-function: linear; }
+  60.00% { stroke-dashoffset: 0.4119; animation-timing-function: linear; }
+  61.67% { stroke-dashoffset: 0.3853; animation-timing-function: linear; }
+  63.33% { stroke-dashoffset: 0.3720; animation-timing-function: linear; }
+  65.00% { stroke-dashoffset: 0.3587; animation-timing-function: linear; }
+  66.67% { stroke-dashoffset: 0.3322; animation-timing-function: linear; }
+  68.33% { stroke-dashoffset: 0.3189; animation-timing-function: linear; }
+  70.00% { stroke-dashoffset: 0.3056; animation-timing-function: linear; }
+  71.67% { stroke-dashoffset: 0.2790; animation-timing-function: linear; }
+  73.33% { stroke-dashoffset: 0.2657; animation-timing-function: linear; }
+  75.00% { stroke-dashoffset: 0.2392; animation-timing-function: linear; }
+  76.67% { stroke-dashoffset: 0.2259; animation-timing-function: linear; }
+  78.33% { stroke-dashoffset: 0.2126; animation-timing-function: linear; }
+  80.00% { stroke-dashoffset: 0.1860; animation-timing-function: linear; }
+  81.67% { stroke-dashoffset: 0.1727; animation-timing-function: linear; }
+  83.33% { stroke-dashoffset: 0.1594; animation-timing-function: linear; }
+  85.00% { stroke-dashoffset: 0.1329; animation-timing-function: linear; }
+  86.67% { stroke-dashoffset: 0.1196; animation-timing-function: linear; }
+  88.33% { stroke-dashoffset: 0.1063; animation-timing-function: linear; }
+  90.00% { stroke-dashoffset: 0.0797; animation-timing-function: linear; }
+  91.67% { stroke-dashoffset: 0.0664; animation-timing-function: linear; }
+  93.33% { stroke-dashoffset: 0.0399; animation-timing-function: linear; }
+  95.00% { stroke-dashoffset: 0.0266; animation-timing-function: linear; }
+  96.67% { stroke-dashoffset: 0.0133; animation-timing-function: linear; }
+  98.33% { stroke-dashoffset: 0.0000; animation-timing-function: linear; }
+  100.00% { stroke-dashoffset: 0.0000; animation-timing-function: linear; }
+}
+@keyframes lane-m-3 {
+  0.00% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  1.67% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  3.33% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  5.00% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  6.67% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  8.33% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  10.00% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  11.67% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  13.33% { stroke-dashoffset: 1.0000; animation-timing-function: linear; }
+  15.00% { stroke-dashoffset: 0.9856; animation-timing-function: linear; }
+  16.67% { stroke-dashoffset: 0.9654; animation-timing-function: linear; }
+  18.33% { stroke-dashoffset: 0.9413; animation-timing-function: linear; }
+  20.00% { stroke-dashoffset: 0.9178; animation-timing-function: linear; }
+  21.67% { stroke-dashoffset: 0.8980; animation-timing-function: linear; }
+  23.33% { stroke-dashoffset: 0.8793; animation-timing-function: linear; }
+  25.00% { stroke-dashoffset: 0.8584; animation-timing-function: linear; }
+  26.67% { stroke-dashoffset: 0.8302; animation-timing-function: linear; }
+  28.33% { stroke-dashoffset: 0.7997; animation-timing-function: linear; }
+  30.00% { stroke-dashoffset: 0.7762; animation-timing-function: linear; }
+  31.67% { stroke-dashoffset: 0.7576; animation-timing-function: linear; }
+  33.33% { stroke-dashoffset: 0.7379; animation-timing-function: linear; }
+  35.00% { stroke-dashoffset: 0.7136; animation-timing-function: linear; }
+  36.67% { stroke-dashoffset: 0.6915; animation-timing-function: linear; }
+  38.33% { stroke-dashoffset: 0.6695; animation-timing-function: linear; }
+  40.00% { stroke-dashoffset: 0.6514; animation-timing-function: linear; }
+  41.67% { stroke-dashoffset: 0.6334; animation-timing-function: linear; }
+  43.33% { stroke-dashoffset: 0.6153; animation-timing-function: linear; }
+  45.00% { stroke-dashoffset: 0.5973; animation-timing-function: linear; }
+  46.67% { stroke-dashoffset: 0.5792; animation-timing-function: linear; }
+  48.33% { stroke-dashoffset: 0.5611; animation-timing-function: linear; }
+  50.00% { stroke-dashoffset: 0.5431; animation-timing-function: linear; }
+  51.67% { stroke-dashoffset: 0.5250; animation-timing-function: linear; }
+  53.33% { stroke-dashoffset: 0.5069; animation-timing-function: linear; }
+  55.00% { stroke-dashoffset: 0.4844; animation-timing-function: linear; }
+  56.67% { stroke-dashoffset: 0.4663; animation-timing-function: linear; }
+  58.33% { stroke-dashoffset: 0.4516; animation-timing-function: linear; }
+  60.00% { stroke-dashoffset: 0.4321; animation-timing-function: linear; }
+  61.67% { stroke-dashoffset: 0.4116; animation-timing-function: linear; }
+  63.33% { stroke-dashoffset: 0.3919; animation-timing-function: linear; }
+  65.00% { stroke-dashoffset: 0.3734; animation-timing-function: linear; }
+  66.67% { stroke-dashoffset: 0.3550; animation-timing-function: linear; }
+  68.33% { stroke-dashoffset: 0.3365; animation-timing-function: linear; }
+  70.00% { stroke-dashoffset: 0.3181; animation-timing-function: linear; }
+  71.67% { stroke-dashoffset: 0.2993; animation-timing-function: linear; }
+  73.33% { stroke-dashoffset: 0.2814; animation-timing-function: linear; }
+  75.00% { stroke-dashoffset: 0.2629; animation-timing-function: linear; }
+  76.67% { stroke-dashoffset: 0.2440; animation-timing-function: linear; }
+  78.33% { stroke-dashoffset: 0.2262; animation-timing-function: linear; }
+  80.00% { stroke-dashoffset: 0.2065; animation-timing-function: linear; }
+  81.67% { stroke-dashoffset: 0.1879; animation-timing-function: linear; }
+  83.33% { stroke-dashoffset: 0.1688; animation-timing-function: linear; }
+  85.00% { stroke-dashoffset: 0.1488; animation-timing-function: linear; }
+  86.67% { stroke-dashoffset: 0.1303; animation-timing-function: linear; }
+  88.33% { stroke-dashoffset: 0.1102; animation-timing-function: linear; }
+  90.00% { stroke-dashoffset: 0.0910; animation-timing-function: linear; }
+  91.67% { stroke-dashoffset: 0.0723; animation-timing-function: linear; }
+  93.33% { stroke-dashoffset: 0.0539; animation-timing-function: linear; }
+  95.00% { stroke-dashoffset: 0.0344; animation-timing-function: linear; }
+  96.67% { stroke-dashoffset: 0.0169; animation-timing-function: linear; }
+  98.33% { stroke-dashoffset: 0.0000; animation-timing-function: linear; }
+  100.00% { stroke-dashoffset: 0.0000; animation-timing-function: linear; }
+}
+@keyframes ride-out-m {
+  0.00% { offset-distance: 0.709%; animation-timing-function: linear; }
+  4.17% { offset-distance: 4.254%; animation-timing-function: linear; }
+  8.33% { offset-distance: 8.508%; animation-timing-function: linear; }
+  12.50% { offset-distance: 12.763%; animation-timing-function: linear; }
+  16.67% { offset-distance: 16.308%; animation-timing-function: linear; }
+  20.83% { offset-distance: 20.562%; animation-timing-function: linear; }
+  25.00% { offset-distance: 24.107%; animation-timing-function: linear; }
+  29.17% { offset-distance: 28.361%; animation-timing-function: linear; }
+  33.33% { offset-distance: 32.615%; animation-timing-function: linear; }
+  37.50% { offset-distance: 36.088%; animation-timing-function: linear; }
+  41.67% { offset-distance: 40.137%; animation-timing-function: linear; }
+  45.83% { offset-distance: 44.089%; animation-timing-function: linear; }
+  50.00% { offset-distance: 48.298%; animation-timing-function: linear; }
+  54.17% { offset-distance: 52.507%; animation-timing-function: linear; }
+  58.33% { offset-distance: 56.746%; animation-timing-function: linear; }
+  62.50% { offset-distance: 61.035%; animation-timing-function: linear; }
+  66.67% { offset-distance: 65.693%; animation-timing-function: linear; }
+  70.83% { offset-distance: 70.106%; animation-timing-function: linear; }
+  75.00% { offset-distance: 74.265%; animation-timing-function: linear; }
+  79.17% { offset-distance: 78.493%; animation-timing-function: linear; }
+  83.33% { offset-distance: 82.805%; animation-timing-function: linear; }
+  87.50% { offset-distance: 86.882%; animation-timing-function: linear; }
+  91.67% { offset-distance: 91.081%; animation-timing-function: linear; }
+  95.83% { offset-distance: 95.069%; animation-timing-function: linear; }
+  100.00% { offset-distance: 100.000%; animation-timing-function: linear; }
+}
+@keyframes trail-m { from { transform: translateY(-531.6px); } to { transform: translateY(3768.4px); } }
+/* MOBILE-END */
