@@ -739,6 +739,8 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 
 
 
+
+
 /* MOBILE-START (generated) */
 .line-m { display: none; }
 @media (max-width: 900px) {
@@ -773,9 +775,9 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
       padding-top: 48px; background: linear-gradient(to bottom, transparent, var(--bg) 44px);
       animation: cap linear both; animation-timeline: --fl;
     }
-    .say.c1 { animation-range: contain -12% contain 20.1%; }
-    .say.c2 { animation-range: contain 21.8% contain 39.0%; }
-    .say.c3 { animation-range: contain 47.7% contain 75.2%; }
+    .say.c1 { animation-range: contain -12% contain 33.9%; }
+    .say.c2 { animation-range: contain 35.6% contain 52.8%; }
+    .say.c3 { animation-range: contain 54.6% contain 75.2%; }
     .say .fact { font-size: 0.9rem; margin-top: 12px; }
   }
 }

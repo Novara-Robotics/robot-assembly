@@ -81,7 +81,7 @@ for i in range(N+1):
 kfs+='}\n'
 Y0=(0-vh+lead)/k; Y1=(F-vh+lead)/k
 kfs+=f'@keyframes trail-m {{ from {{ transform: translateY({Y0:.1f}px); }} to {{ transform: translateY({Y1:.1f}px); }} }}\n'
-caps={'c1':(850,1450),'c2':(1500,2000),'c3':(2250,3050)}
+caps={'c1':(850,1850),'c2':(1900,2400),'c3':(2450,3050)}
 capcss=''.join(f'  .line-m ~ .say.{n} {{ animation-range: contain {pct(a):.1f}% contain {pct(b):.1f}%; }}\n' for n,(a,b) in caps.items())
 block=f'''/* MOBILE-START (generated) */
 .line-m {{ display: none; }}
@@ -117,9 +117,9 @@ block=f'''/* MOBILE-START (generated) */
       padding-top: 48px; background: linear-gradient(to bottom, transparent, var(--bg) 44px);
       animation: cap linear both; animation-timeline: --fl;
     }}
-    .say.c1 {{ animation-range: contain -12% contain {pct(1450):.1f}%; }}
-    .say.c2 {{ animation-range: contain {pct(1500):.1f}% contain {pct(2000):.1f}%; }}
-    .say.c3 {{ animation-range: contain {pct(2250):.1f}% contain {pct(3050):.1f}%; }}
+    .say.c1 {{ animation-range: contain -12% contain {pct(1850):.1f}%; }}
+    .say.c2 {{ animation-range: contain {pct(1900):.1f}% contain {pct(2400):.1f}%; }}
+    .say.c3 {{ animation-range: contain {pct(2450):.1f}% contain {pct(3050):.1f}%; }}
     .say .fact {{ font-size: 0.9rem; margin-top: 12px; }}
   }}
 }}
