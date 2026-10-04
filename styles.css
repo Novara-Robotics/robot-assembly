@@ -123,6 +123,12 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
     .flow { view-timeline-name: --fl; view-timeline-axis: block; }
 
     /* the line inks itself in ahead of the parts */
+    /* the way behind the parts fades out as the page moves on */
+    .lanes { mask: url(#trail); }
+    .trail {
+      animation: trail linear both; animation-timeline: --fl;
+      animation-range: cover 0% contain 100%;
+    }
     .lane {
       stroke-dasharray: 1; stroke-dashoffset: 1;
       animation-name: draw; animation-timing-function: linear;
@@ -187,6 +193,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   .die:nth-of-type(3) .cut { animation-delay: -2.2s; }
 }
 
+@keyframes trail { from { transform: translateY(-310.9px); } to { transform: translateY(4929.1px); } }
 @keyframes walk-on { from { --walk: 0; } to { --walk: 1; } }
 @keyframes pace-on { from { --pace: 0; } to { --pace: 1; } }
 @keyframes wander {
