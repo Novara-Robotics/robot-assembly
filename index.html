@@ -3,129 +3,95 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Novara Robotics | Send us the CAD. Receive the assembled product.</title>
-  <meta name="description" content="Novara plans and runs robotic assembly directly from your design files.">
+  <title>Novara Robotics</title>
+  <meta name="description" content="Novara builds robotic factories and runs them. You take delivery of the product, not the plant.">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#a55b3c">
+  <meta name="theme-color" content="#fcfcfc">
+  <meta property="og:title" content="Novara Robotics">
+  <meta property="og:description" content="The future of manufacturing.">
+  <meta property="og:image" content="./assets/hero-poster.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
   <link rel="icon" href="./favicon.ico" sizes="any">
-  <link rel="icon" href="./assets/favicon-96.png" type="image/png" sizes="96x96">
   <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="./assets/fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
-<header class="nav">
-  <a class="brand" href="#top" aria-label="Novara Robotics"><img src="./assets/logo_nobg.png" alt="Novara Robotics"></a>
-  <nav class="pill" aria-label="Sections">
-    <a href="#top" class="on">Home</a>
-    <a href="#approach">Approach</a>
-    <a href="#replay">Replay</a>
-    <a href="#vision">Vision</a>
-  </nav>
-  <a class="btn" href="https://calendly.com/saayuj-novararobotics/30min" target="_blank" rel="noopener">Book a demo</a>
+<header class="topbar">
+  <a class="brand" href="./" aria-label="Novara Robotics"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M21.5 85V22H63l15.5 15.5V85" stroke="currentColor" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <a class="contact" href="https://calendly.com/saayuj-novararobotics/30min" target="_blank" rel="noopener">Contact us</a>
 </header>
 
-<main id="top">
+<main>
+  <section class="film">
+    <video src="./assets/hero.mp4" poster="./assets/hero-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Six robot arms assembling a drone, a robot arm and a bearing along one conveyor line"></video>
+  </section>
+
   <section class="hero">
-    <video class="hero-video" src="./assets/hero.mp4" poster="./assets/hero-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
-    <div class="hero-shade"></div>
-    <div class="hero-copy">
-      <h1>Send us the CAD.<br>Receive the assembled product.</h1>
-      <p>Novara plans and runs robotic assembly directly from your design files.</p>
-    </div>
-    <a class="btn ghost" href="#approach">Discover more <span aria-hidden="true">&darr;</span></a>
   </section>
 
-  <section id="approach" class="section">
-    <div class="wrap">
-      <p class="label">How it works</p>
-      <h2>From design file<br>to finished product.</h2>
-      <p class="lede">No hand-taught robot programs. Novara reads the parts, works out how they go together, and the robots do the rest.</p>
-
-      <div class="steps">
-        <article class="step">
-          <div class="mock">
-            <p class="mono-cap">Kit in</p>
-            <div class="row"><span>Drone</span><span class="mono">parts + fixtures</span></div>
-            <div class="row"><span>SO-ARM101</span><span class="mono">parts + fixtures</span></div>
-            <div class="row"><span>Pillow-block bearing</span><span class="mono">parts + fixtures</span></div>
-            <div class="row dim"><span>Your product</span><span class="mono">drop in the CAD</span></div>
-          </div>
-          <div class="copy"><h3><span class="num">01</span> CAD in</h3><p>Give us the part geometry. That is the only input.</p></div>
-        </article>
-
-        <article class="step flip">
-          <div class="copy"><h3><span class="num">02</span> Plan</h3><p>The planner generates the assembly order, grasps and insertion axes, and checks that every move is collision-free.</p></div>
-          <div class="mock">
-            <p class="mono-cap">Generated plan</p>
-            <div class="split">
-              <div><p class="mono-cap accent">Order</p><p>Collision-free, base first</p></div>
-              <div><p class="mono-cap accent">Grasp</p><p>Scored against the gripper</p></div>
-            </div>
-            <div class="row"><span>Insertion axis per part</span><span class="mono accent">auto</span></div>
-          </div>
-        </article>
-
-        <article class="step">
-          <div class="mock">
-            <p class="mono-cap">Cell run</p>
-            <div class="row"><span>Arms working together</span><span class="mono">concurrent</span></div>
-            <div class="row"><span>Cells on the line</span><span class="mono">one belt</span></div>
-            <div class="row"><span>Final pose vs. reference</span><span class="mono accent">checked</span></div>
-          </div>
-          <div class="copy"><h3><span class="num">03</span> Assemble</h3><p>Arms assemble, tighten and hand the finished product off down the line. You receive it assembled.</p></div>
-        </article>
+  <!-- Three parts, one unbroken path each. They drift, straighten, pass the dies, meet,
+       become one, and that one leaves to the left. Everything advances with the scroll. -->
+  <section class="flow" aria-label="How one line works">
+    <svg class="line" viewBox="0 0 1200 5240" fill="none" aria-hidden="true"
+         stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <path class="lane d l1" pathLength="1" d="M420 0C420 160.8 820 187.6 820 321.6C820 455.6 300 469 300 603C300 737 700 763.8 700 897.8C700 991.6 600 1045.2 600 1179.2V1820C600 2060 180 2120 180 2380V2800C180 3040 280 3120 280 3320C280 3480 700 3500 700 3620"/>
+      <path class="lane d l2" pathLength="1" d="M600 0C600 147.4 280 174.2 280 314.9C280 455.6 760 469 760 603C760 737 560 763.8 560 897.8C560 1005 760 1045.2 760 1179.2V1820C760 2060 360 2120 360 2380V2800C360 3040 700 3120 700 3320V3620"/>
+      <path class="lane d l3" pathLength="1" d="M780 0C780 174.2 500 201 500 335C500 469 1040 482.4 1040 616.4C1040 750.4 820 777.2 820 911.2C820 1018.4 920 1058.6 920 1179.2V1820C920 2060 540 2120 540 2380V2800C540 3040 1120 3120 1120 3320C1120 3480 700 3500 700 3620"/>
+      <g class="die" transform="translate(0 -580)">
+        <path class="blank" d="M114 3084h132v132h-132z"/>
+        <g transform="translate(180 3150) scale(.9) translate(0 77)"><g class="cut s4"><path class="shape s4" d="M-22 -86h44v32h-44z"/><path class="shape s4" d="M-14 -76h28v8h-28z"/><path class="shape s4" d="M-22 -76h-5v12h5"/><path class="shape s4" d="M22 -76h5v12h-5"/><path class="shape s4" d="M0 -86v-12"/><path class="shape s4" d="M-3.5 -101.5a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0"/><path class="shape s4" d="M-6 -54v4h12v-4"/></g></g>
+      </g>
+      <g class="die" transform="translate(0 -580)">
+        <path class="blank" d="M294 3084h132v132h-132z"/>
+        <g transform="translate(360 3150) scale(.9) translate(0 22)"><g class="cut s2"><path class="shape s2" d="M-24 -50h48v56h-48z"/><path class="shape s2" d="M-34 -48h10v46h-10z"/><path class="shape s2" d="M24 -48h10v46h-10z"/><path class="shape s2" d="M-12 -40h24v16h-24z"/><path class="shape s2" d="M-3 -32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g></g>
+      </g>
+      <g class="die" transform="translate(0 -580)">
+        <path class="blank" d="M474 3084h132v132h-132z"/>
+        <g transform="translate(540 3150) scale(.9) translate(0 -33)"><g class="cut s3"><path class="shape s3" d="M-24 6h48v8h-48z"/><path class="shape s3" d="M-22 14h18v38h-18z"/><path class="shape s3" d="M4 14h18v38h-18z"/><path class="shape s3" d="M-16 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M10 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M-28 52h28v8h-28z"/><path class="shape s3" d="M0 52h28v8h-28z"/></g></g>
+      </g>
+      <g class="arm a1" style="--d:-0.3s" transform="translate(0 -670)">
+        <path d="M514 4520h72"/><path d="M550 4520L584 4396"/>
+        <g class="reach"><path d="M584 4396L638 4296"/><path d="M638 4296l17 -12m-17 12l13 15"/></g>
+      </g>
+      <g class="arm a2 flip" style="--d:-1.8s" transform="translate(0 -670)">
+        <path d="M814 4520h72"/><path d="M850 4520L816 4396"/>
+        <g class="reach"><path d="M816 4396L762 4296"/><path d="M762 4296l-17 -12m17 12l-13 15"/></g>
+      </g>
+      <g class="part p-a" style="offset-path:path('M690 -690C690 -400 420 -300 420 0C420 160.8 820 187.6 820 321.6C820 455.6 300 469 300 603C300 737 700 763.8 700 897.8C700 991.6 600 1045.2 600 1179.2V1820C600 2060 180 2120 180 2380V2800C180 3040 280 3120 280 3320C280 3480 700 3500 700 3620')"><g class="wobble w-a"><g class="fade"><g class="piece"><path class="shape s4" d="M-22 -86h44v32h-44z"/><path class="shape s4" d="M-14 -76h28v8h-28z"/><path class="shape s4" d="M-22 -76h-5v12h5"/><path class="shape s4" d="M22 -76h5v12h-5"/><path class="shape s4" d="M0 -86v-12"/><path class="shape s4" d="M-3.5 -101.5a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0"/><path class="shape s4" d="M-6 -54v4h12v-4"/></g></g></g></g>
+      <g class="part p-b" style="offset-path:path('M980 -470C980 -250 600 -300 600 0C600 147.4 280 174.2 280 314.9C280 455.6 760 469 760 603C760 737 560 763.8 560 897.8C560 1005 760 1045.2 760 1179.2V1820C760 2060 360 2120 360 2380V2800C360 3040 700 3120 700 3320V3620')"><g class="wobble w-b"><g class="fade"><g class="piece"><path class="shape s2" d="M-24 -50h48v56h-48z"/><path class="shape s2" d="M-34 -48h10v46h-10z"/><path class="shape s2" d="M24 -48h10v46h-10z"/><path class="shape s2" d="M-12 -40h24v16h-24z"/><path class="shape s2" d="M-3 -32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g></g></g></g>
+      <g class="part p-c" style="offset-path:path('M820 -240C820 -100 780 -140 780 0C780 174.2 500 201 500 335C500 469 1040 482.4 1040 616.4C1040 750.4 820 777.2 820 911.2C820 1018.4 920 1058.6 920 1179.2V1820C920 2060 540 2120 540 2380V2800C540 3040 1120 3120 1120 3320C1120 3480 700 3500 700 3620')"><g class="wobble w-c"><g class="fade"><g class="piece"><path class="shape s3" d="M-24 6h48v8h-48z"/><path class="shape s3" d="M-22 14h18v38h-18z"/><path class="shape s3" d="M4 14h18v38h-18z"/><path class="shape s3" d="M-16 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M10 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M-28 52h28v8h-28z"/><path class="shape s3" d="M0 52h28v8h-28z"/></g></g></g></g>
+      <g class="made" style="offset-path:path('M700 3620V3980C700 4280 1050 4250 1050 4550C1050 4750 980 4800 980 4930')"><g class="wander"><g class="bob"><g transform="translate(0 22)"><g class="m-head"><path class="shape s4" d="M-22 -86h44v32h-44z"/><path class="shape s4" d="M-14 -76h28v8h-28z"/><path class="shape s4" d="M-22 -76h-5v12h5"/><path class="shape s4" d="M22 -76h5v12h-5"/><path class="shape s4" d="M0 -86v-12"/><path class="shape s4" d="M-3.5 -101.5a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0"/><path class="shape s4" d="M-6 -54v4h12v-4"/></g><path class="shape s2" d="M-24 -50h48v56h-48z"/><path class="shape s2" d="M-12 -40h24v16h-24z"/><path class="shape s2" d="M-3 -32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><g class="m-arm-l"><path class="shape s2" d="M-34 -48h10v46h-10z"/></g><g class="m-arm"><path class="shape s2" d="M24 -48h10v46h-10z"/></g><path class="shape s3" d="M-24 6h48v8h-48z"/><g class="m-leg-l"><path class="shape s3" d="M-22 14h18v38h-18z"/><path class="shape s3" d="M-16 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M-28 52h28v8h-28z"/></g><g class="m-leg-r"><path class="shape s3" d="M4 14h18v38h-18z"/><path class="shape s3" d="M10 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M0 52h28v8h-28z"/></g></g></g></g></g>
+    </svg>
+      <div class="say closing" style="--at:94.1%"><h1>The future of manufacturing.</h1></div>
+      <div class="say left" style="--at:21.9%">
+        <h2>Plan</h2>
+        <p class="slogan">CAD goes in. A plan comes out.</p>
+        <p class="fact">Our stack reads the geometry and works out the order, the grips and the insertion axes.</p>
       </div>
-    </div>
-  </section>
-
-  <section id="replay" class="section muted">
-    <div class="wrap">
-      <p class="label">Live replay</p>
-      <h2>Watch the line run.</h2>
-      <p class="lede">The full run, recorded from the physics simulation. Orbit, zoom, and cut between the cells.</p>
-      <div class="replay" id="replay-frame">
-        <img src="./assets/hero-poster.jpg" alt="Factory line with six arms assembling a drone, a robot arm and a bearing">
-        <button class="btn" id="launch" type="button">Launch interactive replay</button>
-        <p class="mono-cap hint">Loads about 36 MB</p>
+      <div class="say right" style="--at:45.6%">
+        <h2>Tooling</h2>
+        <p class="slogan">Tooling picked and set per part.</p>
+        <p class="fact">Adjusted to the geometry it has to hold, for precision and the throughput that follows.</p>
       </div>
-    </div>
-  </section>
-
-  <section id="vision" class="vision">
-    <div class="wrap">
-      <p class="label light">Vision</p>
-      <h2>Every product,<br>assembled from its CAD.</h2>
-      <p class="lede">Today the line adapts by replanning, not by reprogramming. We are building toward flexible cells that take any new design from file to finished product without a new line.</p>
-      <a class="btn" href="https://calendly.com/saayuj-novararobotics/30min" target="_blank" rel="noopener">Book a demo</a>
-    </div>
+      <div class="say left" style="--at:68.3%">
+        <h2>Assemble</h2>
+        <p class="slogan">Many paths. One product.</p>
+        <p class="fact">Two arms, one piece, at the same time.</p>
+      </div>
   </section>
 </main>
 
 <footer class="footer">
-  <div class="wrap foot">
-    <div>
-      <img class="foot-logo" src="./assets/logo_nobg.png" alt="Novara Robotics">
-      <p class="mono small">&copy; 2026 Novara Robotics Inc.</p>
-      <p class="mono small">Austin, TX, USA</p>
-      <p class="mono small"><a href="mailto:contact@novararobotics.com">contact@novararobotics.com</a></p>
-    </div>
-    <div>
-      <p class="mono-cap">Page</p>
-      <a href="#approach">Approach</a><a href="#replay">Replay</a><a href="#vision">Vision</a>
-    </div>
-    <div>
-      <p class="mono-cap">Company</p>
-      <a href="https://www.linkedin.com/company/novara-robotics" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="./privacy.html">Privacy</a><a href="./terms.html">Terms</a>
-      
-    </div>
+  <div class="who">
+    <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M21.5 85V22H63l15.5 15.5V85" stroke="currentColor" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <p>Novara Robotics Inc.<br>Austin, Texas</p>
   </div>
+  <a class="mail" href="mailto:contact@novararobotics.com">contact@novararobotics.com</a>
+  <p class="legal-links"><a href="./privacy.html">Privacy</a> <a href="./terms.html">Terms</a></p>
 </footer>
 
-<script src="./script.js"></script>
 </body>
 </html>
