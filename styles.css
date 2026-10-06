@@ -64,11 +64,11 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 @supports (animation-timeline: scroll()) {
   .topbar { mix-blend-mode: normal; }
   .topbar .brand, .topbar .contact {
-    animation: bar-ink 1ms linear both; animation-timeline: scroll(root); animation-range: 58vh 92vh;
+    animation: bar-ink 1ms linear both; animation-timeline: scroll(root); animation-range: calc(100dvh - 90px) calc(100dvh - 20px);
   }
   .topbar .brand svg {
     filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.35));
-    animation: bar-shadow 1ms linear both; animation-timeline: scroll(root); animation-range: 58vh 92vh;
+    animation: bar-shadow 1ms linear both; animation-timeline: scroll(root); animation-range: calc(100dvh - 90px) calc(100dvh - 20px);
   }
   .topbar .brand { animation-name: bar-ink-mark; }
   .topbar .contact { text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4); }
