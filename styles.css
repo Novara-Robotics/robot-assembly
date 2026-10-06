@@ -66,11 +66,15 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   .topbar .brand, .topbar .contact {
     animation: bar-ink 1ms linear both; animation-timeline: scroll(root); animation-range: 58vh 92vh;
   }
-  .topbar .brand svg { filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.35)); }
+  .topbar .brand svg {
+    filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.35));
+    animation: bar-shadow 1ms linear both; animation-timeline: scroll(root); animation-range: 58vh 92vh;
+  }
   .topbar .brand { animation-name: bar-ink-mark; }
   .topbar .contact { text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4); }
   @keyframes bar-ink { to { color: var(--ink); text-shadow: 0 1px 8px rgba(0, 0, 0, 0); } }
   @keyframes bar-ink-mark { to { color: var(--ink); } }
+  @keyframes bar-shadow { to { filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0)); } }
 }
 
 /* ---------- hero: the statement, and nothing else ---------- */
