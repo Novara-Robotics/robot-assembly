@@ -720,6 +720,33 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   @keyframes fade-out { to { opacity: 0; } }
 }
 
+
+/* ---------- phone (<= 900px): hero, header, footer ---------- */
+@media (max-width: 900px) {
+  /* header: always dark, on a soft page-coloured fade, no white-over-video state */
+  .topbar { mix-blend-mode: normal; background: linear-gradient(to bottom, var(--bg) 60%, transparent); padding-bottom: 26px; }
+  .topbar .brand, .topbar .contact { animation: none; color: var(--ink); text-shadow: none; }
+  .topbar .brand svg { animation: none; filter: none; }
+  /* hero: the film as a band under the header, the statement and captions below it on white */
+  .film { background: transparent; padding-top: 62px; animation: none; opacity: 1; }
+  .film video { height: 36svh; min-height: 230px; object-position: 50% 50%; }
+  .statement { position: static; animation: none; opacity: 1; padding: 26px 20px 6px; color: var(--ink); text-shadow: none; }
+  .st-main { font-size: clamp(1.7rem, 7.4vw, 2.2rem); }
+  .st-cap { color: var(--mute); text-shadow: none; font-size: 1.02rem; min-height: 3.2em; }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* a slow drift across the line, so the whole thing is seen on a narrow screen */
+  .film video { animation: film-pan 26s ease-in-out infinite alternate; }
+  @keyframes film-pan { from { object-position: 8% 50%; } to { object-position: 92% 50%; } }
+}
+/* footer links on touch screens: visible as links, bigger to hit, copper while pressed */
+@media (max-width: 900px) {
+  .footer .mail { display: inline-block; padding: 8px 4px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: rgba(17, 17, 19, 0.3); -webkit-tap-highlight-color: transparent; }
+  .footer .legal-links { gap: 6px; font-size: 0.95rem; }
+  .footer .legal-links a { padding: 12px 10px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: rgba(90, 95, 102, 0.4); -webkit-tap-highlight-color: transparent; }
+  .footer .mail:active, .footer .legal-links a:active { color: var(--accent); text-decoration-color: var(--accent); }
+}
+
 /* ---------- closing statement ---------- */
 .say.closing { left: 1%; width: auto; max-width: 62%; }
 .say.closing h1 { font-size: clamp(2.6rem, 7.2vw, 6rem); line-height: 0.98; max-width: 13ch; }
@@ -808,10 +835,10 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
     }
     .line-m .lanes { mask: url(#trail-m); }
     .line-m .trail { animation-name: trail-m; }
-    /* on a phone the captions sit at the bottom of the screen and change as the parts move on */
+    /* on a phone the captions sit just under the header and change as the parts move on */
     .say.c1, .say.c2, .say.c3 {
-      position: fixed; top: auto; bottom: 22px; left: 20px; right: 20px; width: auto; margin: 0; transform: none;
-      padding-top: 48px; background: linear-gradient(to bottom, transparent, var(--bg) 44px);
+      position: fixed; top: 72px; bottom: auto; left: 20px; right: 20px; width: auto; margin: 0; transform: none;
+      padding: 14px 0 34px; background: linear-gradient(to bottom, var(--bg) 62%, transparent);
       animation: cap linear both; animation-timeline: --fl;
     }
     .say.c1 { animation-range: contain -12% contain 27.7%; }
@@ -1205,30 +1232,30 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   100.00% { stroke-dashoffset: 0.0000; animation-timing-function: linear; }
 }
 @keyframes ride-out-m {
-  0.00% { offset-distance: 0.709%; animation-timing-function: linear; }
-  4.17% { offset-distance: 4.254%; animation-timing-function: linear; }
-  8.33% { offset-distance: 8.508%; animation-timing-function: linear; }
-  12.50% { offset-distance: 12.763%; animation-timing-function: linear; }
-  16.67% { offset-distance: 16.308%; animation-timing-function: linear; }
-  20.83% { offset-distance: 20.562%; animation-timing-function: linear; }
-  25.00% { offset-distance: 24.107%; animation-timing-function: linear; }
-  29.17% { offset-distance: 28.361%; animation-timing-function: linear; }
-  33.33% { offset-distance: 32.615%; animation-timing-function: linear; }
-  37.50% { offset-distance: 36.088%; animation-timing-function: linear; }
-  41.67% { offset-distance: 40.137%; animation-timing-function: linear; }
-  45.83% { offset-distance: 44.089%; animation-timing-function: linear; }
-  50.00% { offset-distance: 48.298%; animation-timing-function: linear; }
-  54.17% { offset-distance: 52.507%; animation-timing-function: linear; }
-  58.33% { offset-distance: 56.746%; animation-timing-function: linear; }
-  62.50% { offset-distance: 61.035%; animation-timing-function: linear; }
-  66.67% { offset-distance: 65.693%; animation-timing-function: linear; }
-  70.83% { offset-distance: 70.106%; animation-timing-function: linear; }
-  75.00% { offset-distance: 74.265%; animation-timing-function: linear; }
-  79.17% { offset-distance: 78.493%; animation-timing-function: linear; }
-  83.33% { offset-distance: 82.805%; animation-timing-function: linear; }
-  87.50% { offset-distance: 86.882%; animation-timing-function: linear; }
-  91.67% { offset-distance: 91.081%; animation-timing-function: linear; }
-  95.83% { offset-distance: 95.069%; animation-timing-function: linear; }
+  0.00% { offset-distance: 0.732%; animation-timing-function: linear; }
+  4.17% { offset-distance: 4.390%; animation-timing-function: linear; }
+  8.33% { offset-distance: 8.780%; animation-timing-function: linear; }
+  12.50% { offset-distance: 13.171%; animation-timing-function: linear; }
+  16.67% { offset-distance: 16.829%; animation-timing-function: linear; }
+  20.83% { offset-distance: 21.220%; animation-timing-function: linear; }
+  25.00% { offset-distance: 24.878%; animation-timing-function: linear; }
+  29.17% { offset-distance: 29.268%; animation-timing-function: linear; }
+  33.33% { offset-distance: 33.659%; animation-timing-function: linear; }
+  37.50% { offset-distance: 37.242%; animation-timing-function: linear; }
+  41.67% { offset-distance: 41.409%; animation-timing-function: linear; }
+  45.83% { offset-distance: 45.428%; animation-timing-function: linear; }
+  50.00% { offset-distance: 49.627%; animation-timing-function: linear; }
+  54.17% { offset-distance: 53.732%; animation-timing-function: linear; }
+  58.33% { offset-distance: 57.782%; animation-timing-function: linear; }
+  62.50% { offset-distance: 61.817%; animation-timing-function: linear; }
+  66.67% { offset-distance: 66.171%; animation-timing-function: linear; }
+  70.83% { offset-distance: 70.305%; animation-timing-function: linear; }
+  75.00% { offset-distance: 74.240%; animation-timing-function: linear; }
+  79.17% { offset-distance: 78.301%; animation-timing-function: linear; }
+  83.33% { offset-distance: 82.521%; animation-timing-function: linear; }
+  87.50% { offset-distance: 86.584%; animation-timing-function: linear; }
+  91.67% { offset-distance: 90.835%; animation-timing-function: linear; }
+  95.83% { offset-distance: 94.918%; animation-timing-function: linear; }
   100.00% { offset-distance: 100.000%; animation-timing-function: linear; }
 }
 @keyframes trail-m { from { transform: translateY(-531.6px); } to { transform: translateY(3768.4px); } }
