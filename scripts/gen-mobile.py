@@ -81,15 +81,14 @@ for i in range(N+1):
 kfs+='}\n'
 Y0=(0-vh+lead)/k; Y1=(F-vh+lead)/k
 kfs+=f'@keyframes trail-m {{ from {{ transform: translateY({Y0:.1f}px); }} to {{ transform: translateY({Y1:.1f}px); }} }}\n'
-caps={'c1':(850,1670),'c2':(1720,2300),'c3':(2350,3650)}
+caps={'c1':(850,1500),'c2':(1540,2340),'c3':(2390,4000)}
 capcss=''.join(f'  .line-m ~ .say.{n} {{ animation-range: contain {pct(a):.1f}% contain {pct(b):.1f}%; }}\n' for n,(a,b) in caps.items())
 block=f'''/* MOBILE-START (generated) */
 .line-m {{ display: none; }}
 @media (max-width: 900px) {{
   .line-d {{ display: none; }}
   .line-m {{ display: block; }}
-  .hero {{ min-height: 0; }}
-  .flow {{ overflow-y: clip; }}
+  .hero {{ min-height: 60dvh; }}
   .line-m .part .fade {{ transform: scale(1.3); }}
   .line-m .made .bob > g {{ transform: scale(1.3) translate(0, 22px); }}
   .say.closing {{ position: absolute; top: var(--at-m); transform: translateY(-50%); left: 0; width: 100%; max-width: none; margin: 0; }}
@@ -118,9 +117,9 @@ block=f'''/* MOBILE-START (generated) */
       padding: 14px 0 34px; background: linear-gradient(to bottom, var(--bg) 62%, transparent);
       animation: cap linear both; animation-timeline: --fl;
     }}
-    .say.c1 {{ animation-range: contain -12% contain {pct(1670):.1f}%; }}
-    .say.c2 {{ animation-range: contain {pct(1720):.1f}% contain {pct(2300):.1f}%; }}
-    .say.c3 {{ animation-range: contain {pct(2350):.1f}% contain {pct(3050):.1f}%; }}
+    .say.c1 {{ animation-range: contain -12% contain {pct(caps['c1'][1]):.1f}%; }}
+    .say.c2 {{ animation-range: contain {pct(caps['c2'][0]):.1f}% contain {pct(caps['c2'][1]):.1f}%; }}
+    .say.c3 {{ animation-range: contain {pct(caps['c3'][0]):.1f}% contain {pct(caps['c3'][1]):.1f}%; }}
     .say .fact {{ font-size: 1rem; margin-top: 12px; }}
     /* the finished robot stands centred and sways a little, then comes back to the middle */
     .line-m .wander {{ animation: wander-m 12s ease-in-out infinite; }}
@@ -145,3 +144,5 @@ block=f'''/* MOBILE-START (generated) */
 c=re.sub(r'/\* MOBILE-START.*?MOBILE-END \*/\n','',c,flags=re.S)+'\n'+block
 open('styles.css','w').write(c)
 print('PM',PM,{n:(round(pct(a),1),round(pct(b),1)) for n,(a,b) in caps.items()})
+import subprocess,sys
+subprocess.run([sys.executable,'scripts/smooth-keyframes.py'],check=True)

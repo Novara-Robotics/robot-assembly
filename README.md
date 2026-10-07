@@ -12,6 +12,8 @@ keep the hero captions in step with the video.
   generated block between the `MOBILE-START/END` markers in `styles.css`). Safe to re-run; edit its
   constants (lanes, merge point `MY`, height `Hm`) to change the phone layout. The phone hero, header
   and footer rules live in a separate block in `styles.css` that the script does not touch.
+- `scripts/smooth-keyframes.py` - resamples the sampled motion keyframes (parts, lines, robot) 4x with
+  monotone cubic interpolation so speed does not step at the joints. Idempotent; `gen-mobile.py` runs it.
 - `replay/` - three.js replay of the recorded MuJoCo run. In the repo, not linked.
 
 ## The page
