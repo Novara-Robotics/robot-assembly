@@ -17,6 +17,7 @@ if m is None:
     m=re.search(r'    <svg class="line line-d".*?    </svg>\n',h,flags=re.S); d_svg=m.group(0)
 else:
     d_svg=m.group(0); h=h.replace(d_svg,d_svg.replace('<svg class="line"','<svg class="line line-d"',1)); d_svg=d_svg.replace('<svg class="line"','<svg class="line line-d"',1)
+h=re.sub(r'    <!-- MOBILE-LAYERS-START -->.*?<!-- MOBILE-LAYERS-END -->\n','',h,flags=re.S)
 if 'line-m' in h: h=re.sub(r'    <svg class="line line-m".*?    </svg>\n','',h,flags=re.S)
 s=d_svg.replace('class="line line-d"','class="line line-m"').replace('viewBox="0 0 1200 5240"',f'viewBox="0 0 {W} {Hm}"')
 s=s.replace('trail-fade','trail-fade-m').replace('id="trail"','id="trail-m"').replace('y1="-760"','y1="-600"').replace('x="-600" y="-1200" width="2400" height="7000"','x="-300" y="-1200" width="1200" height="7000"').replace('<rect x="-600" y="-1000" width="2400" height="1500"','<rect x="-300" y="-1000" width="1200" height="1500"')
@@ -28,7 +29,15 @@ s=re.sub(r"(class=\"made\" style=\"offset-path:path\(')[^']*'",lambda mm:mm.grou
 cx=iter([(-50,-1010),(-60,-1010),(-70,-1010)])
 s=re.sub(r'<g class="die" transform="[^"]*"',lambda mm:'<g class="die" transform="translate(%d %d)"'%next(cx),s)
 s=re.sub(r'(<g class="arm a\d[^"]*" style="[^"]*" transform=")[^"]*"',lambda mm:mm.group(1)+f'translate(-400 {MY-4200-90})"',s)
-h=h.replace(d_svg,d_svg+s,1)
+# two stacked layers: the lines, then a cheap fixed fade (CSS), then parts/dies/arms/robot.
+# (A mask on the lines forced a full repaint every scroll frame; this fades the lines only, at no cost.)
+open_tag=re.match(r'\s*<svg[^>]*>',s).group(0).strip()
+lanes=re.search(r'<g class="lanes">.*?</g>',s,flags=re.S).group(0)
+rest=s[s.index(lanes)+len(lanes):s.rindex('</svg>')]
+layers=('    <!-- MOBILE-LAYERS-START -->\n    '+open_tag+'\n      '+lanes+'\n    </svg>\n'
+        '    <div class="trail-fade" aria-hidden="true"></div>\n'
+        '    '+open_tag.replace('class="line line-m"','class="line line-m line-m-top"')+rest+'</svg>\n    <!-- MOBILE-LAYERS-END -->\n')
+h=h.replace(d_svg,d_svg+layers,1)
 # captions classes, closing var
 h=h.replace('<div class="say left" style="--at:21.9%">','<div class="say left c1" style="--at:21.9%">').replace('<div class="say right" style="--at:45.6%">','<div class="say right c2" style="--at:45.6%">').replace('<div class="say left" style="--at:68.3%">','<div class="say left c3" style="--at:68.3%">')
 h=re.sub(r'<div class="say closing" style="[^"]*">',f'<div class="say closing" style="--at:94.1%;--at-m:{(MY+1060)/Hm*100:.1f}%">',h)
@@ -80,14 +89,15 @@ for i in range(N+1):
     kfs+=f'  {t*100:.2f}% {{ offset-distance: {f*100:.3f}%; animation-timing-function: linear; }}\n'
 kfs+='}\n'
 Y0=(0-vh+lead)/k; Y1=(F-vh+lead)/k
-kfs+=f'@keyframes trail-m {{ from {{ transform: translateY({Y0:.1f}px); }} to {{ transform: translateY({Y1:.1f}px); }} }}\n'
 caps={'c1':(850,1500),'c2':(1540,2340),'c3':(2390,4000)}
 capcss=''.join(f'  .line-m ~ .say.{n} {{ animation-range: contain {pct(a):.1f}% contain {pct(b):.1f}%; }}\n' for n,(a,b) in caps.items())
 block=f'''/* MOBILE-START (generated) */
 .line-m {{ display: none; }}
+.trail-fade {{ display: none; }}
 @media (max-width: 900px) {{
   .line-d {{ display: none; }}
   .line-m {{ display: block; }}
+  .line-m-top {{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; }}
   .hero {{ min-height: 60dvh; }}
   .line-m .part .fade {{ transform: scale(1.3); }}
   .line-m .made .bob > g {{ transform: scale(1.3) translate(0, 22px); }}
@@ -109,8 +119,14 @@ block=f'''/* MOBILE-START (generated) */
       animation-name: ride-out-m, arrive, walk-on, pace-on;
       animation-range: contain {PM}% contain {END}%, contain {PM}% contain {PM+.2:.1f}%, contain {PM}% contain {PM+1.6:.1f}%, contain 93% contain 97%;
     }}
-    .line-m .lanes {{ mask: url(#trail-m); }}
-    .line-m .trail {{ animation-name: trail-m; }}
+    /* fade the lines out towards the top of the screen: a fixed page-coloured gradient between the line layer
+       and the layer above it. Same stops and place as the old mask (fully faded above a, 22% visible at the
+       middle stop, fully visible below b); the mask sat at 100dvh minus 1.8867 / 1.0867 flow widths (W = 100vw - 28px). */
+    .trail-fade {{
+      display: block; position: fixed; top: 0; left: 0; right: 0; height: calc(100dvh - 1.0867 * (100vw - 28px)); pointer-events: none;
+      background: linear-gradient(to bottom, var(--bg) calc(100dvh - 1.8867 * (100vw - 28px)), rgb(252 252 252 / 0.78) calc(100dvh - 1.4067 * (100vw - 28px)), rgb(252 252 252 / 0) calc(100dvh - 1.0867 * (100vw - 28px)));
+      opacity: 0; animation: trail-fade-in linear both; animation-timeline: --fl; animation-range: cover 4% cover 6%;
+    }}
     /* on a phone the captions sit just under the header and change as the parts move on */
     .say.c1, .say.c2, .say.c3 {{
       position: fixed; top: 72px; bottom: auto; left: 20px; right: 20px; width: auto; margin: 0; transform: none;
@@ -133,6 +149,7 @@ block=f'''/* MOBILE-START (generated) */
   75%  {{ transform: translateX(calc(var(--pace) * -45px)) scaleX(1); }}
   100% {{ transform: translateX(0) scaleX(1); }}
 }}
+@keyframes trail-fade-in {{ to {{ opacity: 1; }} }}
 @keyframes calm-m {{ from {{ --amp: 0.5; }} to {{ --amp: 0; }} }}
 @keyframes cap {{
   0% {{ opacity: 0; transform: translateY(14px); }}

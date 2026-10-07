@@ -29,16 +29,6 @@
   <link rel="manifest" href="./site.webmanifest">
   <link rel="preload" href="./assets/fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./styles.css">
-<script>
-// Test switches for checking scroll performance on a phone: ?diag=nomask, ?diag=notime or ?diag=both.
-// They do nothing unless the address asks for them.
-(function () {
-  var m = /[?&]diag=(nomask|notime|both)/.exec(location.search); if (!m) return;
-  var c = document.documentElement.classList;
-  if (m[1] !== 'notime') c.add('diag-nomask');
-  if (m[1] !== 'nomask') c.add('diag-notime');
-})();
-</script>
 </head>
 <body ontouchstart="">
 
@@ -104,23 +94,18 @@
       <g class="part p-c" style="offset-path:path('M820 -240C820 -100 780 -140 780 0C780 174.2 500 201 500 335C500 469 1040 482.4 1040 616.4C1040 750.4 820 777.2 820 911.2C820 1018.4 920 1058.6 920 1179.2V1820C920 2060 540 2120 540 2380V2800C540 3040 1120 3120 1120 3320C1120 3480 700 3500 700 3620')"><g class="wobble w-c"><g class="fade"><g class="piece"><path class="shape s3" d="M-24 6h48v8h-48z"/><path class="shape s3" d="M-22 14h18v38h-18z"/><path class="shape s3" d="M4 14h18v38h-18z"/><path class="shape s3" d="M-16 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M10 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M-28 52h28v8h-28z"/><path class="shape s3" d="M0 52h28v8h-28z"/></g></g></g></g>
       <g class="made" style="offset-path:path('M700 3620V3980C700 4280 1050 4250 1050 4550C1050 4750 980 4800 980 4930')"><g class="wander"><g class="bob"><g transform="translate(0 22)"><g class="m-head"><path class="shape s4" d="M-22 -86h44v32h-44z"/><path class="shape s4" d="M-14 -76h28v8h-28z"/><path class="shape s4" d="M-22 -76h-5v12h5"/><path class="shape s4" d="M22 -76h5v12h-5"/><path class="shape s4" d="M0 -86v-12"/><path class="shape s4" d="M-3.5 -101.5a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0"/><path class="shape s4" d="M-6 -54v4h12v-4"/></g><path class="shape s2" d="M-24 -50h48v56h-48z"/><path class="shape s2" d="M-12 -40h24v16h-24z"/><path class="shape s2" d="M-3 -32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><g class="m-arm-l"><path class="shape s2" d="M-34 -48h10v46h-10z"/></g><g class="m-arm"><path class="shape s2" d="M24 -48h10v46h-10z"/></g><path class="shape s3" d="M-24 6h48v8h-48z"/><g class="m-leg-l"><path class="shape s3" d="M-22 14h18v38h-18z"/><path class="shape s3" d="M-16 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M-28 52h28v8h-28z"/></g><g class="m-leg-r"><path class="shape s3" d="M4 14h18v38h-18z"/><path class="shape s3" d="M10 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M0 52h28v8h-28z"/></g></g></g></g></g>
     </svg>
+    <!-- MOBILE-LAYERS-START -->
     <svg class="line line-m" viewBox="0 0 600 4870" fill="none" aria-hidden="true"
          stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-      <defs>
-        <linearGradient id="trail-fade-m" gradientUnits="userSpaceOnUse" x1="0" y1="-600" x2="0" y2="-120">
-          <stop offset="0" stop-color="#fff" stop-opacity="0"/>
-          <stop offset="0.6" stop-color="#fff" stop-opacity="0.22"/>
-          <stop offset="1" stop-color="#fff" stop-opacity="1"/>
-        </linearGradient>
-        <mask id="trail-m" maskUnits="userSpaceOnUse" x="-300" y="-1200" width="1200" height="7000">
-          <g class="trail"><rect x="-300" y="-1000" width="1200" height="1500" fill="url(#trail-fade-m)"/></g>
-        </mask>
-      </defs>
       <g class="lanes">
       <path class="lane d l1" pathLength="1" d="M150 0C150 120 450 150 450 290C450 430 200 450 200 590C200 690 190 720 190 800V1250C190 1330 130 1370 130 1450V2250C130 2480 50 2560 50 2800V3080C50 3280 300 3330 300 3550"/>
       <path class="lane d l2" pathLength="1" d="M300 0C300 110 120 150 120 280C120 420 430 440 430 580C430 690 300 730 300 800V3550"/>
       <path class="lane d l3" pathLength="1" d="M450 0C450 140 300 170 300 310C300 440 520 470 520 590C520 700 410 730 410 800V1250C410 1330 470 1370 470 1450V2250C470 2480 550 2560 550 2800V3080C550 3280 300 3330 300 3550"/>
       </g>
+    </svg>
+    <div class="trail-fade" aria-hidden="true"></div>
+    <svg class="line line-m line-m-top" viewBox="0 0 600 4870" fill="none" aria-hidden="true"
+         stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
       <g class="die" transform="translate(-50 -1010)">
         <path class="blank" d="M114 3084h132v132h-132z"/>
         <g transform="translate(180 3150) scale(.9) translate(0 77)"><g class="cut s4"><path class="shape s4" d="M-22 -86h44v32h-44z"/><path class="shape s4" d="M-14 -76h28v8h-28z"/><path class="shape s4" d="M-22 -76h-5v12h5"/><path class="shape s4" d="M22 -76h5v12h-5"/><path class="shape s4" d="M0 -86v-12"/><path class="shape s4" d="M-3.5 -101.5a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0"/><path class="shape s4" d="M-6 -54v4h12v-4"/></g></g>
@@ -146,6 +131,7 @@
       <g class="part p-c" style="offset-path:path('M350 -250C350 -120 450 -140 450 0C450 140 300 170 300 310C300 440 520 470 520 590C520 700 410 730 410 800V1250C410 1330 470 1370 470 1450V2250C470 2480 550 2560 550 2800V3080C550 3280 300 3330 300 3550')"><g class="wobble w-c"><g class="fade"><g class="piece"><path class="shape s3" d="M-24 6h48v8h-48z"/><path class="shape s3" d="M-22 14h18v38h-18z"/><path class="shape s3" d="M4 14h18v38h-18z"/><path class="shape s3" d="M-16 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M10 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M-28 52h28v8h-28z"/><path class="shape s3" d="M0 52h28v8h-28z"/></g></g></g></g>
       <g class="made" style="offset-path:path('M300 3550V3850C300 4030 300 4150 300 4370')"><g class="wander"><g class="bob"><g transform="translate(0 22)"><g class="m-head"><path class="shape s4" d="M-22 -86h44v32h-44z"/><path class="shape s4" d="M-14 -76h28v8h-28z"/><path class="shape s4" d="M-22 -76h-5v12h5"/><path class="shape s4" d="M22 -76h5v12h-5"/><path class="shape s4" d="M0 -86v-12"/><path class="shape s4" d="M-3.5 -101.5a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0"/><path class="shape s4" d="M-6 -54v4h12v-4"/></g><path class="shape s2" d="M-24 -50h48v56h-48z"/><path class="shape s2" d="M-12 -40h24v16h-24z"/><path class="shape s2" d="M-3 -32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><g class="m-arm-l"><path class="shape s2" d="M-34 -48h10v46h-10z"/></g><g class="m-arm"><path class="shape s2" d="M24 -48h10v46h-10z"/></g><path class="shape s3" d="M-24 6h48v8h-48z"/><g class="m-leg-l"><path class="shape s3" d="M-22 14h18v38h-18z"/><path class="shape s3" d="M-16 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M-28 52h28v8h-28z"/></g><g class="m-leg-r"><path class="shape s3" d="M4 14h18v38h-18z"/><path class="shape s3" d="M10 32a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path class="shape s3" d="M0 52h28v8h-28z"/></g></g></g></g></g>
     </svg>
+    <!-- MOBILE-LAYERS-END -->
       <div class="say closing" style="--at:94.1%;--at-m:94.7%"><h1>The future of manufacturing.</h1></div>
       <div class="say left c1" style="--at:21.9%">
         <h2>Plan</h2>

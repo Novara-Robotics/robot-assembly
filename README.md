@@ -12,6 +12,9 @@ keep the hero captions in step with the video.
   generated block between the `MOBILE-START/END` markers in `styles.css`). Safe to re-run; edit its
   constants (lanes, merge point `MY`, height `Hm`) to change the phone layout. The phone hero, header
   and footer rules live in a separate block in `styles.css` that the script does not touch.
+- On phones the line drawing is two stacked SVG layers (lines, then parts/dies/arms/robot) with a fixed CSS
+  gradient (`.trail-fade`) between them that fades the lines near the top. It replaced an SVG mask, which
+  forced a full repaint every scroll frame (26 ms/frame measured vs 5 ms). Desktop still uses the mask.
 - `scripts/smooth-keyframes.py` - resamples the sampled motion keyframes (parts, lines, robot) 4x with
   monotone cubic interpolation so speed does not step at the joints. Idempotent; `gen-mobile.py` runs it.
 - `replay/` - three.js replay of the recorded MuJoCo run. In the repo, not linked.
