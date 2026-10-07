@@ -1,12 +1,17 @@
 # robot-assembly
 
 One-page site for Novara Robotics. Static (GitHub Pages, deploy from `main`), all paths
-relative, no build step, **no JavaScript**.
+relative, no build step. The only JavaScript is a few lines at the bottom of `index.html` that
+keep the hero captions in step with the video.
 
 - `index.html`, `styles.css` - the page
 - `privacy.html`, `terms.html` - legal pages, same shell
 - `assets/` - hero video, `mark.svg` logo, favicons, self-hosted Geist
 - `scripts/gen-scene.py` - generates the diagram SVGs; paste its output into `index.html`
+- `scripts/gen-mobile.py` - builds the phone version of the line (geometry in `index.html` and the
+  generated block between the `MOBILE-START/END` markers in `styles.css`). Safe to re-run; edit its
+  constants (lanes, merge point `MY`, height `Hm`) to change the phone layout. The phone hero, header
+  and footer rules live in a separate block in `styles.css` that the script does not touch.
 - `replay/` - three.js replay of the recorded MuJoCo run. In the repo, not linked.
 
 ## The page

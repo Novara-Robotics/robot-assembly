@@ -1,15 +1,15 @@
 import re,math
 h=open('index.html').read(); c=open('styles.css').read()
 # ---- geometry (viewBox units; designed for a 390px phone: k=362/600)
-W,Hm=600,4300; k=362/600; vh=844; lead=.62*vh; F=Hm*k; MY=2900
+W,Hm=600,4870; k=362/600; vh=844; lead=.62*vh; F=Hm*k; MY=3550
 PM=round((MY*k-lead)/(F-vh)*100,1); END=98
 def pct(y): return max(0,(y*k-lead)/(F-vh)*100)
 LANES={
- 'l1':'M150 0C150 120 450 150 450 290C450 430 200 450 200 590C200 690 190 720 190 800V1250C190 1330 130 1370 130 1450V1960C130 2400 300 2500 300 2900',
- 'l2':'M300 0C300 110 120 150 120 280C120 420 430 440 430 580C430 690 300 730 300 800V2900',
- 'l3':'M450 0C450 140 300 170 300 310C300 440 520 470 520 590C520 700 410 730 410 800V1250C410 1330 470 1370 470 1450V1960C470 2400 300 2500 300 2900'}
+ 'l1':'M150 0C150 120 450 150 450 290C450 430 200 450 200 590C200 690 190 720 190 800V1250C190 1330 130 1370 130 1450V2250C130 2480 50 2560 50 2800V3080C50 3280 300 3330 300 3550',
+ 'l2':'M300 0C300 110 120 150 120 280C120 420 430 440 430 580C430 690 300 730 300 800V3550',
+ 'l3':'M450 0C450 140 300 170 300 310C300 440 520 470 520 590C520 700 410 730 410 800V1250C410 1330 470 1370 470 1450V2250C470 2480 550 2560 550 2800V3080C550 3280 300 3330 300 3550'}
 PRE={'p-a':'M420 -560C420 -300 150 -250 150 0','p-b':'M520 -420C520 -200 300 -240 300 0','p-c':'M350 -250C350 -120 450 -140 450 0'}
-MADE='M300 2900V3200C300 3380 450 3500 450 3720'
+MADE='M300 3550V3850C300 4030 300 4150 300 4370'
 # ---- markup
 m=re.search(r'    <svg class="line".*?    </svg>\n',h,flags=re.S)
 if m is None:
@@ -31,7 +31,7 @@ s=re.sub(r'(<g class="arm a\d[^"]*" style="[^"]*" transform=")[^"]*"',lambda mm:
 h=h.replace(d_svg,d_svg+s,1)
 # captions classes, closing var
 h=h.replace('<div class="say left" style="--at:21.9%">','<div class="say left c1" style="--at:21.9%">').replace('<div class="say right" style="--at:45.6%">','<div class="say right c2" style="--at:45.6%">').replace('<div class="say left" style="--at:68.3%">','<div class="say left c3" style="--at:68.3%">')
-h=re.sub(r'<div class="say closing" style="[^"]*">',f'<div class="say closing" style="--at:94.1%;--at-m:{3960/Hm*100:.1f}%">',h)
+h=re.sub(r'<div class="say closing" style="[^"]*">',f'<div class="say closing" style="--at:94.1%;--at-m:{(MY+1060)/Hm*100:.1f}%">',h)
 open('index.html','w').write(h)
 # ---- keyframes
 def parse(d):
@@ -81,14 +81,15 @@ for i in range(N+1):
 kfs+='}\n'
 Y0=(0-vh+lead)/k; Y1=(F-vh+lead)/k
 kfs+=f'@keyframes trail-m {{ from {{ transform: translateY({Y0:.1f}px); }} to {{ transform: translateY({Y1:.1f}px); }} }}\n'
-caps={'c1':(850,1670),'c2':(1720,2300),'c3':(2350,3050)}
+caps={'c1':(850,1670),'c2':(1720,2300),'c3':(2350,3650)}
 capcss=''.join(f'  .line-m ~ .say.{n} {{ animation-range: contain {pct(a):.1f}% contain {pct(b):.1f}%; }}\n' for n,(a,b) in caps.items())
 block=f'''/* MOBILE-START (generated) */
 .line-m {{ display: none; }}
 @media (max-width: 900px) {{
   .line-d {{ display: none; }}
   .line-m {{ display: block; }}
-  .hero {{ min-height: 60dvh; }}
+  .hero {{ min-height: 0; }}
+  .flow {{ overflow-y: clip; }}
   .line-m .part .fade {{ transform: scale(1.3); }}
   .line-m .made .bob > g {{ transform: scale(1.3) translate(0, 22px); }}
   .say.closing {{ position: absolute; top: var(--at-m); transform: translateY(-50%); left: 0; width: 100%; max-width: none; margin: 0; }}
@@ -111,17 +112,27 @@ block=f'''/* MOBILE-START (generated) */
     }}
     .line-m .lanes {{ mask: url(#trail-m); }}
     .line-m .trail {{ animation-name: trail-m; }}
-    /* on a phone the captions sit at the bottom of the screen and change as the parts move on */
+    /* on a phone the captions sit just under the header and change as the parts move on */
     .say.c1, .say.c2, .say.c3 {{
-      position: fixed; top: auto; bottom: 22px; left: 20px; right: 20px; width: auto; margin: 0; transform: none;
-      padding-top: 48px; background: linear-gradient(to bottom, transparent, var(--bg) 44px);
+      position: fixed; top: 72px; bottom: auto; left: 20px; right: 20px; width: auto; margin: 0; transform: none;
+      padding: 14px 0 34px; background: linear-gradient(to bottom, var(--bg) 62%, transparent);
       animation: cap linear both; animation-timeline: --fl;
     }}
     .say.c1 {{ animation-range: contain -12% contain {pct(1670):.1f}%; }}
     .say.c2 {{ animation-range: contain {pct(1720):.1f}% contain {pct(2300):.1f}%; }}
     .say.c3 {{ animation-range: contain {pct(2350):.1f}% contain {pct(3050):.1f}%; }}
-    .say .fact {{ font-size: 0.9rem; margin-top: 12px; }}
+    .say .fact {{ font-size: 1rem; margin-top: 12px; }}
+    /* the finished robot stands centred and sways a little, then comes back to the middle */
+    .line-m .wander {{ animation: wander-m 12s ease-in-out infinite; }}
   }}
+}}
+@keyframes wander-m {{
+  0%   {{ transform: translateX(0) scaleX(1); }}
+  25%  {{ transform: translateX(calc(var(--pace) * 45px)) scaleX(1); }}
+  30%  {{ transform: translateX(calc(var(--pace) * 45px)) scaleX(-1); }}
+  70%  {{ transform: translateX(calc(var(--pace) * -45px)) scaleX(-1); }}
+  75%  {{ transform: translateX(calc(var(--pace) * -45px)) scaleX(1); }}
+  100% {{ transform: translateX(0) scaleX(1); }}
 }}
 @keyframes calm-m {{ from {{ --amp: 0.5; }} to {{ --amp: 0; }} }}
 @keyframes cap {{
