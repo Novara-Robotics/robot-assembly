@@ -64,11 +64,11 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 @supports (animation-timeline: scroll()) {
   .topbar { mix-blend-mode: normal; }
   .topbar .brand, .topbar .contact {
-    animation: bar-ink 1ms linear both; animation-timeline: scroll(root); animation-range: 27dvh 31dvh;
+    animation: bar-ink 1ms linear both; animation-timeline: scroll(root); animation-range: 57dvh 61dvh;
   }
   .topbar .brand svg {
     filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.35));
-    animation: bar-shadow 1ms linear both; animation-timeline: scroll(root); animation-range: 27dvh 31dvh;
+    animation: bar-shadow 1ms linear both; animation-timeline: scroll(root); animation-range: 57dvh 61dvh;
   }
   .topbar .brand { animation-name: bar-ink-mark; }
   .topbar .contact { text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4); }
@@ -715,8 +715,8 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 .film video { width: 100%; height: 100dvh; object-fit: cover; }
 /* As you scroll: the statement goes first, then the whole film dissolves into the page. */
 @supports (animation-timeline: scroll()) {
-  .statement { animation: fade-out 1ms linear both; animation-timeline: scroll(root); animation-range: 0 25dvh; }
-  .film { animation: fade-out 1ms linear both; animation-timeline: scroll(root); animation-range: 10dvh 60dvh; }
+  .statement { animation: fade-out 1ms linear both; animation-timeline: scroll(root); animation-range: 30dvh 55dvh; }
+  .film { animation: fade-out 1ms linear both; animation-timeline: scroll(root); animation-range: 40dvh 90dvh; }
   @keyframes fade-out { to { opacity: 0; } }
 }
 
