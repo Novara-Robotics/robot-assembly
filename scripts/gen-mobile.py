@@ -1,5 +1,14 @@
 import re,math
 h=open('index.html').read(); c=open('styles.css').read()
+def merge_desktop(h):
+    m=re.search(r'    <!-- DESKTOP-LAYERS-START -->\n(.*?)    <!-- DESKTOP-LAYERS-END -->\n',h,flags=re.S)
+    if not m: return h
+    blk=m.group(1)
+    a=re.search(r'(\s*<svg[^>]*>)(.*?)</svg>',blk,flags=re.S)           # lines layer
+    b=re.search(r'</div>\s*(<svg[^>]*>)(.*?)</svg>',blk,flags=re.S)     # everything above the lines
+    open_tag=a.group(1).strip()
+    return h.replace(m.group(0),'    '+open_tag+a.group(2)+b.group(2)+'</svg>\n',1)
+h=merge_desktop(h)
 # ---- geometry (viewBox units; designed for a 390px phone: k=362/600)
 W,Hm=600,4870; k=362/600; vh=844; lead=.62*vh; F=Hm*k; MY=3550
 PM=round((MY*k-lead)/(F-vh)*100,1); END=98
@@ -33,11 +42,18 @@ s=re.sub(r'(<g class="arm a\d[^"]*" style="[^"]*" transform=")[^"]*"',lambda mm:
 # (A mask on the lines forced a full repaint every scroll frame; this fades the lines only, at no cost.)
 open_tag=re.match(r'\s*<svg[^>]*>',s).group(0).strip()
 lanes=re.search(r'<g class="lanes">.*?</g>',s,flags=re.S).group(0)
-rest=s[s.index(lanes)+len(lanes):s.rindex('</svg>')]
+rest='\n      '+s[s.index(lanes)+len(lanes):s.rindex('</svg>')].strip()+'\n    '
 layers=('    <!-- MOBILE-LAYERS-START -->\n    '+open_tag+'\n      '+lanes+'\n    </svg>\n'
         '    <div class="trail-fade" aria-hidden="true"></div>\n'
         '    '+open_tag.replace('class="line line-m"','class="line line-m line-m-top"')+rest+'</svg>\n    <!-- MOBILE-LAYERS-END -->\n')
-h=h.replace(d_svg,d_svg+layers,1)
+def split_desktop(svg):
+    open_tag=re.match(r'\s*<svg[^>]*>',svg).group(0).strip()
+    lanes=re.search(r'<g class="lanes">.*?</g>',svg,flags=re.S).group(0)
+    rest='\n      '+svg[svg.index(lanes)+len(lanes):svg.rindex('</svg>')].strip()+'\n    '
+    return ('    <!-- DESKTOP-LAYERS-START -->\n    '+open_tag+'\n      '+lanes+'\n    </svg>\n'
+            '    <div class="trail-fade-d" aria-hidden="true"><i></i></div>\n'
+            '    '+open_tag.replace('class="line line-d"','class="line line-d line-d-top"')+rest+'</svg>\n    <!-- DESKTOP-LAYERS-END -->\n')
+h=h.replace(d_svg,split_desktop(d_svg)+layers,1)
 # captions classes, closing var
 h=h.replace('<div class="say left" style="--at:21.9%">','<div class="say left c1" style="--at:21.9%">').replace('<div class="say right" style="--at:45.6%">','<div class="say right c2" style="--at:45.6%">').replace('<div class="say left" style="--at:68.3%">','<div class="say left c3" style="--at:68.3%">')
 h=re.sub(r'<div class="say closing" style="[^"]*">',f'<div class="say closing" style="--at:94.1%;--at-m:{(MY+1060)/Hm*100:.1f}%">',h)
@@ -96,6 +112,7 @@ block=f'''/* MOBILE-START (generated) */
 .trail-fade {{ display: none; }}
 @media (max-width: 900px) {{
   .line-d {{ display: none; }}
+  .trail-fade-d {{ display: none; }}
   .line-m {{ display: block; }}
   .line-m-top {{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; }}
   .hero {{ min-height: 60dvh; }}
@@ -158,7 +175,7 @@ block=f'''/* MOBILE-START (generated) */
 }}
 {kfs}/* MOBILE-END */
 '''
-c=re.sub(r'/\* MOBILE-START.*?MOBILE-END \*/\n','',c,flags=re.S)+'\n'+block
+c=re.sub(r'/\* MOBILE-START.*?MOBILE-END \*/\n','',c,flags=re.S).rstrip('\n')+'\n\n'+block
 open('styles.css','w').write(c)
 print('PM',PM,{n:(round(pct(a),1),round(pct(b),1)) for n,(a,b) in caps.items()})
 import subprocess,sys

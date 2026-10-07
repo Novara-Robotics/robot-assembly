@@ -92,6 +92,8 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
    One SVG for the whole journey, so each part can travel a single unbroken path. Three
    parts, start to finish; they meet, become one, and that one leaves. */
 .flow { position: relative; width: min(1320px, 100% - 48px); margin: 0 auto; }
+.trail-fade-d { display: none; }
+.line-d-top { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
 .line { pointer-events: none; display: block; width: 100%; height: auto; color: var(--line); overflow: visible; }
 
 .say { position: absolute; top: var(--at); transform: translateY(-50%); width: min(34%, 26rem); }
@@ -141,11 +143,17 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
     .flow { view-timeline-name: --fl; view-timeline-axis: block; }
 
     /* the line inks itself in ahead of the parts */
-    /* the way behind the parts fades out as the page moves on */
-    .lanes { mask: url(#trail); }
-    .trail {
-      animation: trail linear both; animation-timeline: --fl;
-      animation-range: cover 0% contain 100%;
+    /* the way behind the parts fades out as the page moves on: a fixed page-coloured gradient between the line
+       layer and the layer above it (it replaced an SVG mask that repainted the whole drawing every scroll frame).
+       Same stops and place as that mask: fully faded above a, 22% visible at the middle stop, fully visible below b,
+       with a = 100dvh - 0.8925 W, mid = 100dvh - 0.5725 W, b = 100dvh - 0.3592 W, W = the flow width. */
+    .trail-fade-d {
+      display: block; position: fixed; top: 0; left: 0; right: 0; pointer-events: none; container-type: inline-size;
+      opacity: 0; animation: trail-fade-in linear both; animation-timeline: --fl; animation-range: cover 5% cover 7%;
+    }
+    .trail-fade-d i {
+      display: block; height: calc(100dvh - 0.35917 * min(1320px, 100cqw - 48px));
+      background: linear-gradient(to bottom, var(--bg) calc(100dvh - 0.8925 * min(1320px, 100cqw - 48px)), rgb(252 252 252 / 0.78) calc(100dvh - 0.5725 * min(1320px, 100cqw - 48px)), rgb(252 252 252 / 0) calc(100dvh - 0.35917 * min(1320px, 100cqw - 48px)));
     }
     .lane {
       stroke-dasharray: 1; stroke-dashoffset: 1;
@@ -211,7 +219,6 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   .die:nth-of-type(3) .cut { animation-delay: -2.2s; }
 }
 
-@keyframes trail { from { transform: translateY(-310.9px); } to { transform: translateY(4929.1px); } }
 @keyframes walk-on { from { --walk: 0; } to { --walk: 1; } }
 @keyframes pace-on { from { --pace: 0; } to { --pace: 1; } }
 @keyframes wander {
@@ -1955,20 +1962,12 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 .legal a { color: var(--accent); text-underline-offset: 3px; }
 .legal .meta { font-size: 0.82rem; margin: 0 0 6px; }
 
-
-
-
-
-
-
-
-
-
 /* MOBILE-START (generated) */
 .line-m { display: none; }
 .trail-fade { display: none; }
 @media (max-width: 900px) {
   .line-d { display: none; }
+  .trail-fade-d { display: none; }
   .line-m { display: block; }
   .line-m-top { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
   .hero { min-height: 60dvh; }
