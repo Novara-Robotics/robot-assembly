@@ -29,6 +29,16 @@
   <link rel="manifest" href="./site.webmanifest">
   <link rel="preload" href="./assets/fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./styles.css">
+<script>
+// Test switches for checking scroll performance on a phone: ?diag=nomask, ?diag=notime or ?diag=both.
+// They do nothing unless the address asks for them.
+(function () {
+  var m = /[?&]diag=(nomask|notime|both)/.exec(location.search); if (!m) return;
+  var c = document.documentElement.classList;
+  if (m[1] !== 'notime') c.add('diag-nomask');
+  if (m[1] !== 'nomask') c.add('diag-notime');
+})();
+</script>
 </head>
 <body ontouchstart="">
 
