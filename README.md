@@ -90,10 +90,22 @@ not re-read `var()` inside other animations' keyframes when such a property is a
 
 ## Known limitations
 
-- iPhone Chrome in landscape has rotation and notch quirks that come from Chrome on iOS.
-- On iPad landscape the Plan / Adapt / Assemble caption can run into the header's "n" and "Contact us".
-- On mobile Safari the top robot part is sometimes visible before scrolling.
-- The reduced-motion / no-JavaScript fallback is a plain page without the drawing.
-- Android and iOS versions older than the ones tested (iOS 26 Safari, iPad Safari, Mac Safari 18.6 and Chrome,
-  Firefox on Ubuntu) have not been checked.
-- `noindex` is still on in `index.html`. When it comes off, add `robots.txt` and a sitemap.
+Accepted on purpose; everything else was tested and works.
+
+- **iPhone Chrome, landscape after rotating from portrait:** the layout turns desktop with side margins and the footer
+  stays stacked. Chrome on iOS keeps a stale page width after rotation (likely cause, not verified). Safari is fine.
+- **iPad landscape:** the Plan / Adapt / Assemble caption can collide with the header's "n" and "Contact us".
+- **Mobile Safari:** the top robot part is sometimes visible before scrolling.
+- **Plain fallback page:** reduced motion, no JavaScript or a failed driver show the video, statement, three sections
+  and footer, without the drawing.
+- **Firefox and Safari 18 or older** run the scripted copy of the animation (`sd-poly`), not the native one. It matched
+  Chrome to within a few pixels in tests (a caption mid-fade was further off) and looked right on real devices.
+- **Tested on:** Chrome (Ubuntu, Mac, iPhone portrait), Firefox (Ubuntu), Safari 18.6 (Mac), iPhone Safari (iOS 26),
+  iPad Safari. Not tested: Android, Edge, older iOS, other Safari versions. Safari cannot be run in the dev environment,
+  so Safari behaviour has only been checked by hand.
+- **Edits need the build:** after changing `index.html`, `styles.css` or `scripts/sd.js`, run the two build steps above.
+  Skipping them lets Firefox and Safari 18 drift from Chrome without any error.
+- **`/replay/`:** reachable but not linked, 37 MB, `noindex`.
+- **`noindex` is on** in the pages, so search engines do not list the site. When it comes off, add `robots.txt` and a
+  sitemap.
+- **No analytics.**
