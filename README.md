@@ -108,4 +108,5 @@ Accepted on purpose; everything else was tested and works.
 - **`/replay/`:** reachable but not linked, 37 MB, `noindex`.
 - **`noindex` is on** in the pages, so search engines do not list the site. When it comes off, add `robots.txt` and a
   sitemap.
-- **No analytics.**
+- **No analytics (parked on purpose).** Not needed for a backup site; it would also break the "no third-party requests"
+  claim above. If it is ever wanted, the same free, cookie-less route as the main site applies (see the .com repo).
