@@ -1,7 +1,8 @@
 # robot-assembly
 
-The Novara Robotics site at novararobotics.ai. Static, hosted on GitHub Pages (deploys from `main`), all paths
-relative. There is no bundler: the HTML and CSS are served as written, but two small Python scripts generate parts
+The Novara Robotics site at novararobotics.ai. Novara is a robotic contract assembler: a customer sends a product and its
+CAD, and Novara plans the build, runs the robot cells and delivers finished units. The site is static, hosted on GitHub
+Pages (deploys from `main`), all paths relative. There is no bundler: the HTML and CSS are served as written, but two small Python scripts generate parts
 of them (see **Build steps** below), so **edit, then run the scripts, then commit**.
 
 The `.com` site (Deri) is a separate repo, `Novara-Robotics.github.io`, and never mentions this one.
@@ -10,8 +11,9 @@ The `.com` site (Deri) is a separate repo, `Novara-Robotics.github.io`, and neve
 
 - `index.html`, `styles.css` - the page
 - `privacy.html`, `terms.html`, `404.html` - legal pages and the 404, same shell
-- `assets/` - hero video and poster, `mark.svg` logo, favicons and app icons, share image, self-hosted Geist,
-  and `sd.js` (generated, see below)
+- `assets/` - hero video and poster, `mark.svg` logo, favicons and app icons, self-hosted Geist, `sd.js` (generated,
+  see below), and the link-preview image `og-share-contract.jpg` (1200x630, the words "Robotic contract assembly" are part
+  of the picture, so regenerate it if the title changes)
 - `scripts/` - build scripts (below)
 - `replay/` - kept on purpose: an interactive three.js replay of the recorded MuJoCo factory run, reachable at
   `/replay/` but not linked from the page and marked `noindex`. The viewer code also lives in the
@@ -21,9 +23,10 @@ The `.com` site (Deri) is a separate repo, `Novara-Robotics.github.io`, and neve
 
 ## The page
 
-A looping factory video with a statement on it. As you scroll the film dissolves and a line drawing takes over:
-parts drift in, three captions (Plan, Adapt, Assemble) step through it, the lines fan out and the parts meet under
-two arms, then the finished product leaves and the closing line appears. The page has no numeric claims.
+A looping factory video with the headline "Contract assembly, done by robots." on it. As you scroll the film dissolves
+and a line drawing takes over: parts drift in, three stages (Plan, Adapt, Assemble) step through it with a short
+description each, the lines fan out and the parts meet under two arms, then the finished product leaves and the closing
+line appears. The page has no numeric claims.
 
 On phones (portrait, up to 900px wide) the same drawing is laid out as a single column, capped at 34rem and centred.
 Landscape phones and tablets use the desktop layout. `viewport-fit=cover` and `env(safe-area-inset-*)` keep content
