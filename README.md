@@ -108,5 +108,8 @@ Accepted on purpose; everything else was tested and works.
 - **`/replay/`:** reachable but not linked, 37 MB, `noindex`.
 - **`noindex` is on** in the pages, so search engines do not list the site. When it comes off, add `robots.txt` and a
   sitemap.
-- **No analytics (parked on purpose).** Not needed for a backup site; it would also break the "no third-party requests"
-  claim above. If it is ever wanted, the same free, cookie-less route as the main site applies (see the .com repo).
+- **No analytics (parked on purpose).** There is no visit counting yet, and on this backup site it would also break the
+  "no third-party requests" claim above. Decision: free only and low priority. Options if it is picked up: Cloudflare
+  Web Analytics (free, cookie-less, basic counts, probably no booking-click goal) or self-hosted Umami (free, more work).
+  Paid tools such as Plausible or Fathom were ruled out for now. Adding any of them also needs one line in the Privacy
+  Policy and one script tag in each page's head.
