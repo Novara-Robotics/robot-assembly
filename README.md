@@ -12,8 +12,8 @@ The `.com` site (Deri) is a separate repo, `Novara-Robotics.github.io`, and neve
 - `index.html`, `styles.css` - the page
 - `privacy.html`, `terms.html`, `404.html` - legal pages and the 404, same shell
 - `assets/` - hero video and poster, `mark.svg` logo, favicons and app icons, self-hosted Geist, `sd.js` (generated,
-  see below), and the link-preview image `og-share-contract.jpg` (1200x630, the words "Robotic contract assembly" are part
-  of the picture, so regenerate it if the title changes)
+  see below), and the link-preview image `og-share-contract-2.jpg` (1200x630, a frame from the 1080p factory render with the logo only,
+  no text, so it does not go stale when the wording changes; link apps cache it, so use a new filename if you replace it)
 - `scripts/` - build scripts (below)
 - `replay/` - kept on purpose: an interactive three.js replay of the recorded MuJoCo factory run, reachable at
   `/replay/` but not linked from the page and marked `noindex`. The viewer code also lives in the
