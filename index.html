@@ -9,13 +9,12 @@
 (function () {
   var cl = document.documentElement.classList;
   try {
-    var q = location.search, force = (/[?&]mode=(static|polytest)\b/.exec(q) || [])[1];
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     var ok = !!(window.CSS && CSS.supports);
     var native = ok && CSS.supports('animation-timeline', 'view()') && CSS.supports('animation-timeline', 'scroll()');
     var poly = ok && 'getAnimations' in Element.prototype && !!CSS.registerProperty &&
       CSS.supports('offset-path', 'path("M0 0")') && CSS.supports('animation-play-state', 'paused');
-    var m = reduce || force === 'static' ? 'static' : force === 'polytest' ? (poly ? 'poly' : 'static') : native ? 'native' : poly ? 'poly' : 'static';
+    var m = reduce ? 'static' : native ? 'native' : poly ? 'poly' : 'static';
     // the scripted mode starts as the safe static page and switches on only once assets/sd.js has really built it
     if (m === 'poly') { cl.add('sd-static'); cl.add('sd-want-poly'); } else cl.add('sd-' + m);
   } catch (e) { cl.add('sd-static'); }

@@ -74,18 +74,17 @@ Local preview:
 
     python3 -m http.server 4173
 
-## Compatibility build (`next/`)
+## Compatibility build
 
 Scroll-driven animation is native in Chrome/Edge 115+ and Safari 26+. Safari 18 and older, and Firefox, do not have it.
-`scripts/compat-build.py` builds a copy of the site (default `next/`; `.` patches the root in place, idempotent) that picks
-one of three modes in a head script, put on `<html>` as a class:
+`scripts/compat-build.py` patches `index.html` and `styles.css` in place (idempotent) and adds `assets/sd.js`. A head
+script picks one of three modes from the browser alone and puts it on `<html>` as a class:
 
 - `sd-native`: the browser's own animation, unchanged (the original `@supports` blocks are untouched).
 - `sd-poly`: `scripts/sd.js` pauses every CSS animation that carries a scroll range and sets its time from the scroll
   position, with the same cover/contain maths as the browser (checked against Chrome to four decimals). Keyframes and
   easing stay in CSS. It starts as the static page and switches on only after the driver has really built itself.
 - `sd-static`: the plain page (video, statement, three sections, closing line, footer). Used for reduced motion, no
-  script, a failed driver, or `?mode=static`.
+  script, or a failed or blocked driver.
 
-`?debug=1` shows the active mode. `?mode=static` forces the plain page. `?mode=polytest` forces the scripted mode in a
-browser that also has native support (testing only; it needs a stylesheet with the native rules stripped).
+`scripts/sd.js` is the source of `assets/sd.js`; run the build script after editing it or `styles.css`.

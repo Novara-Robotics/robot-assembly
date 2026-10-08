@@ -7,31 +7,20 @@
                 same cover/contain range maths as the browser. Keyframes, easing and values all stay in CSS.
      sd-static  no drawing: the plain page (video, statement, three sections, closing line, footer).
 
-   ?mode=static forces the static page. ?debug=1 shows which mode is active. */
+   Nothing here reads the address: the mode follows the browser alone. */
 (function () {
   var root = document.documentElement, cl = root.classList;
-  var params = location.search;
 
-  function mode() { return cl.contains('sd-native') ? 'native' : cl.contains('sd-poly') ? 'poly' : 'static'; }
   var wantPoly = cl.contains('sd-want-poly');
-  function toStatic(why) {
+  function toStatic() {
     cl.remove('sd-native'); cl.remove('sd-poly'); cl.add('sd-static'); wantPoly = false;
-    root.setAttribute('data-sd-why', why || '');
-    if (window.__sdStop) window.__sdStop();
-    paintDebug();
+    items = [];
+    listen();
   }
-
-  /* ---- debug label (?debug=1) ---- */
-  var dbg;
-  function paintDebug() {
-    if (!/[?&]debug=1/.test(params)) return;
-    if (!dbg) {
-      dbg = document.createElement('div');
-      dbg.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:99999;font:12px/1.4 monospace;background:#111;color:#fff;padding:6px 8px;border-radius:4px;opacity:.9;pointer-events:none;white-space:pre';
-      document.body.appendChild(dbg);
-    }
-    dbg.textContent = 'mode: ' + mode() + (root.getAttribute('data-sd-why') ? ' (' + root.getAttribute('data-sd-why') + ')' : '') +
-      (window.__sdCount != null ? '\ndriven animations: ' + window.__sdCount : '');
+  var listening = false;
+  function listen() {
+    if (!listening) { listening = true; window.addEventListener('scroll', onScroll, { passive: true }); }
+    chrome();
   }
 
   /* ---- header colour and the film dissolving (modes without native scroll timelines) ---- */
@@ -91,7 +80,6 @@
         n++;
       }
     }
-    window.__sdCount = n;
   }
   function drive() {
     if (!cl.contains('sd-poly')) return;
@@ -102,22 +90,21 @@
       if (Math.abs(p - it.last) > 0.0002 || it.last < 0) { it.a.currentTime = p * 1000; it.last = p; }
     }
   }
-  window.__sdStop = function () { items = []; };
 
   function start() {
     // captions follow the film in every mode
-    if (!cl.contains('sd-native')) { chrome(); window.addEventListener('scroll', onScroll, { passive: true }); }
+    if (!cl.contains('sd-native')) listen();
     window.addEventListener('resize', function () { clearTimeout(start.t); start.t = setTimeout(function () { if (cl.contains('sd-poly')) { build(); drive(); } chrome(); }, 150); });
 
     if (wantPoly) {
       try {
         cl.remove('sd-static'); cl.add('sd-poly');
         build();
-        if (!items.length) { toStatic('no scroll animations were found'); }
+        if (!items.length) { toStatic(); }
         else { drive(); }
-      } catch (e) { toStatic('driver error: ' + e.message); }
+      } catch (e) { toStatic(); }
       // geometry changes once fonts and the video have settled
-      window.addEventListener('load', function () { if (cl.contains('sd-poly')) { build(); lastS = -1; drive(); chrome(); paintDebug(); } });
+      window.addEventListener('load', function () { if (cl.contains('sd-poly')) { build(); lastS = -1; drive(); chrome(); } });
     } else if (cl.contains('sd-native')) {
       // make sure the browser really runs the timeline, not just parses it
       try {
@@ -127,10 +114,10 @@
         var an = p.getAnimations();
         var ok = an.length > 0 && (!window.ScrollTimeline || an[0].timeline instanceof window.ScrollTimeline);
         document.body.removeChild(p);
-        if (!ok) toStatic('native scroll timeline did not start');
-      } catch (e) { toStatic('probe error: ' + e.message); }
+        if (!ok) toStatic();
+      } catch (e) { toStatic(); }
     }
-    paintDebug();
+   
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();

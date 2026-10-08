@@ -1,6 +1,6 @@
 """Build the compatibility version of the site (works in browsers without scroll-driven animation).
 
-    python3 scripts/compat-build.py [target-dir]      # default: next   (use "." to patch the site root in place)
+    python3 scripts/compat-build.py [target-dir]      # default: "." = patch the site root in place
 
 What it does, and nothing else:
   * copies the site into the target directory (skipped when the target is ".")
@@ -16,7 +16,7 @@ Idempotent: re-running replaces the generated block and the injected tags."""
 import re, shutil, sys, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-target = sys.argv[1] if len(sys.argv) > 1 else 'next'
+target = sys.argv[1] if len(sys.argv) > 1 else '.'
 T = os.path.join(ROOT, target)
 inplace = os.path.abspath(T) == ROOT
 
@@ -29,13 +29,12 @@ HEAD = '''<script>
 (function () {
   var cl = document.documentElement.classList;
   try {
-    var q = location.search, force = (/[?&]mode=(static|polytest)\\b/.exec(q) || [])[1];
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     var ok = !!(window.CSS && CSS.supports);
     var native = ok && CSS.supports('animation-timeline', 'view()') && CSS.supports('animation-timeline', 'scroll()');
     var poly = ok && 'getAnimations' in Element.prototype && !!CSS.registerProperty &&
       CSS.supports('offset-path', 'path("M0 0")') && CSS.supports('animation-play-state', 'paused');
-    var m = reduce || force === 'static' ? 'static' : force === 'polytest' ? (poly ? 'poly' : 'static') : native ? 'native' : poly ? 'poly' : 'static';
+    var m = reduce ? 'static' : native ? 'native' : poly ? 'poly' : 'static';
     // the scripted mode starts as the safe static page and switches on only once assets/sd.js has really built it
     if (m === 'poly') { cl.add('sd-static'); cl.add('sd-want-poly'); } else cl.add('sd-' + m);
   } catch (e) { cl.add('sd-static'); }
