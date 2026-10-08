@@ -1,97 +1,99 @@
 # robot-assembly
 
-One-page site for Novara Robotics. Static (GitHub Pages, deploy from `main`), all paths
-relative, no build step. The only JavaScript is a few lines at the bottom of `index.html` that
-keep the hero captions in step with the video.
+The Novara Robotics site at novararobotics.ai. Static, hosted on GitHub Pages (deploys from `main`), all paths
+relative. There is no bundler: the HTML and CSS are served as written, but two small Python scripts generate parts
+of them (see **Build steps** below), so **edit, then run the scripts, then commit**.
+
+The `.com` site (Deri) is a separate repo, `Novara-Robotics.github.io`, and never mentions this one.
+
+## Files
 
 - `index.html`, `styles.css` - the page
-- `privacy.html`, `terms.html` - legal pages, same shell
-- `assets/` - hero video, `mark.svg` logo, favicons, self-hosted Geist
-- `scripts/gen-scene.py` - generates the diagram SVGs; paste its output into `index.html`
-- `scripts/gen-mobile.py` - builds the phone version of the line (geometry in `index.html` and the
-  generated block between the `MOBILE-START/END` markers in `styles.css`). Safe to re-run; edit its
-  constants (lanes, merge point `MY`, height `Hm`) to change the phone layout. The phone hero, header
-  and footer rules live in a separate block in `styles.css` that the script does not touch.
-- On phones the line drawing is two stacked SVG layers (lines, then parts/dies/arms/robot) with a fixed CSS
-  gradient (`.trail-fade`) between them that fades the lines near the top. It replaced an SVG mask, which
-  forced a full repaint every scroll frame (26 ms/frame measured vs 5 ms). Desktop uses the same split
-  (`.trail-fade-d`; 47 ms vs 9 ms). `gen-mobile.py` re-joins and re-splits both drawings, so it is safe to re-run.
-- `scripts/smooth-keyframes.py` - resamples the sampled motion keyframes (parts, lines, robot) 4x with
-  monotone cubic interpolation so speed does not step at the joints. Idempotent; `gen-mobile.py` runs it.
-- `replay/` - three.js replay of the recorded MuJoCo run. In the repo, not linked.
+- `privacy.html`, `terms.html`, `404.html` - legal pages and the 404, same shell
+- `assets/` - hero video and poster, `mark.svg` logo, favicons and app icons, share image, self-hosted Geist,
+  and `sd.js` (generated, see below)
+- `scripts/` - build scripts (below)
+- `replay/` - kept on purpose: an interactive three.js replay of the recorded MuJoCo factory run, reachable at
+  `/replay/` but not linked from the page and marked `noindex`. The viewer code also lives in the
+  `robot-assembly-demo` repo (`web/factory/`); the big data files (`scene.glb`, `traj.bin.gz`, `traj.json`) are
+  generated there by `sim/scripts/18_export_web.py` from `trajectory.npz`, and are committed here as a backup.
+- `CNAME` - the custom domain for GitHub Pages. Keep it.
 
 ## The page
 
-1. **Hero** - the statement, with the parts drifting around it; they fade as you scroll on
-2. **Play** - the parts, still drawings, drift around the centre of the page
-3. **Plan** - they arrive on the right and get straightened
-4. **Tooling** - the line crosses left; a die per lane cuts itself to that part's profile
-5. **Assemble** - the lanes fan wide, then the parts travel in and meet under two arms
-6. **Leave** - the line stops and the product keeps going
+A looping factory video with a statement on it. As you scroll the film dissolves and a line drawing takes over:
+parts drift in, three captions (Plan, Adapt, Assemble) step through it, the lines fan out and the parts meet under
+two arms, then the finished product leaves and the closing line appears. The page has no numeric claims.
 
-Every stage is full width so the line can cross the page between steps. The words alternate
-left, right, left, right, at the height where the line has already settled on the far side.
-Seams measure 0px and no text block is within 100px of the drawing.
+On phones (portrait, up to 900px wide) the same drawing is laid out as a single column, capped at 34rem and centred.
+Landscape phones and tablets use the desktop layout. `viewport-fit=cover` and `env(safe-area-inset-*)` keep content
+clear of notches.
 
-## Motion
+## Build steps
 
-Two systems, no scroll listeners anywhere.
+Run from the repo root after editing `index.html`, `styles.css` or `scripts/sd.js`. All scripts are idempotent.
 
-- **Scroll-driven** (`view-timeline` per stage): each stage inks its own lines in as you
-  reach it.
-- **Scroll-driven**: the line draws itself, and the parts advance along `offset-path` with
-  the scroll (each gets a slice of its stage timeline), so they stop when you stop.
-- **Independent loops**: lateral drift on each part, arm pick cycles, the die cutting its
-  profile, and the merge that converges, stalls, then commits.
-
-Two traps worth remembering:
-
-- The `animation` shorthand resets `animation-range`. Use longhands or every animation
-  collapses onto one shared range.
-- `pathLength="1"` normalises a path to one unit, so a `9 9` dash pattern renders solid.
-  The dashed re-route branch therefore fades in rather than drawing.
-
-Both fallbacks show the line whole, so nothing depends on animation:
-`@supports not (animation-timeline: view())` and `prefers-reduced-motion: reduce`.
-
-## Copy
-
-Short declarative lines, one idea each, in the register used by Hadrian and Path Robotics:
-a step name, one sentence, one hard fact. Every fact is checked against
-`replay/assets/traj.json` (the recorded run) rather than invented.
-
-## Design
-
-Built against the `design-taste-frontend` skill.
-
-- Dials: DESIGN_VARIANCE 7, MOTION_INTENSITY 6, VISUAL_DENSITY 3
-- Theme: light, locked. Radius: all-sharp (0).
-- Palette: `--accent #a85a2c` sampled from the robot arms in the hero render, plus
-  `--s2 #2d5f78` and `--s3 #8d7230` for the parts. All under 80% saturation, all >= 4.4:1.
-- Type: Geist variable, self-hosted. No third-party requests on any page.
+1. `python3 scripts/gen-mobile.py` - builds the phone version of the line: the phone SVG in `index.html` and the
+   generated block between `MOBILE-START` / `MOBILE-END` in `styles.css`. Edit its constants (lanes, merge point `MY`,
+   height `Hm`) to change the phone layout. The phone hero, header and footer rules live in a separate block that the
+   script does not touch. It calls `scripts/smooth-keyframes.py`, which resamples the sampled motion keyframes 4x
+   with monotone cubic interpolation so speed does not step at the joints.
+2. `python3 scripts/compat-build.py .` - the compatibility build (below). It patches `index.html` and `styles.css` in
+   place and copies `scripts/sd.js` to `assets/sd.js`.
 
 Local preview:
 
     python3 -m http.server 4173
 
+## Motion
+
+Motion is CSS: the line draws itself and the parts advance along `offset-path` as you scroll (scroll-driven
+animation, `animation-timeline: view()` per stage), plus independent loops (arm pick cycles, die cutting, drift).
+Both fallbacks show the line whole, so nothing depends on animation: `prefers-reduced-motion: reduce`, and
+browsers without scroll timelines (below).
+
+On phones and desktop the lines and the parts/arms are two stacked SVG layers with a fixed CSS gradient between them
+(`.trail-fade` on phones, `.trail-fade-d` on desktop) that fades the lines near the top. It replaced an SVG mask, which
+forced a full repaint every scroll frame.
+
+Two traps worth remembering:
+
+- The `animation` shorthand resets `animation-range`. Use longhands or every animation collapses onto one shared range.
+- `pathLength="1"` normalises a path to one unit, so a `9 9` dash pattern renders solid.
+
 ## Compatibility build
 
-Scroll-driven animation is native in Chrome/Edge 115+ and Safari 26+. Safari 18 and older, and Firefox, do not have it.
-`scripts/compat-build.py` patches `index.html` and `styles.css` in place (idempotent) and adds `assets/sd.js`. A head
-script picks one of three modes from the browser alone and puts it on `<html>` as a class:
+Scroll-driven animation is native in Chrome/Edge 115+ and Safari 26+. Safari 18 and older, and Firefox, do not have
+it. A head script (added by `compat-build.py`) picks one of three modes from the browser alone and puts it on `<html>`
+as a class. There are no URL overrides.
 
 - `sd-native`: the browser's own animation, unchanged (the original `@supports` blocks are untouched).
-- `sd-poly`: `scripts/sd.js` pauses every CSS animation that carries a scroll range and sets its time from the scroll
+- `sd-poly`: `assets/sd.js` pauses every CSS animation that carries a scroll range and sets its time from the scroll
   position, with the same cover/contain maths as the browser (checked against Chrome to four decimals). Keyframes and
   easing stay in CSS. It starts as the static page and switches on only after the driver has really built itself.
 - `sd-static`: the plain page (video, statement, three sections, closing line, footer). Used for reduced motion, no
   script, or a failed or blocked driver.
 
-`scripts/sd.js` is the source of `assets/sd.js`; run the build script after editing it or `styles.css`.
+`scripts/sd.js` is the source of `assets/sd.js`; never edit the copy in `assets/`.
 
-Notes on the scripted mode: animations that only change a custom property (`calm`, `calm-m`, `walk-on`, `pace-on`) are not
-run by the CSS engine in this mode. `sd.js` sets `--amp`, `--walk` and `--pace` inline from the scroll position, because
-Firefox does not re-read `var()` inside other animations' keyframes when such a property is animated. The phone layout
-applies only to portrait screens up to 900px wide (`(max-width: 900px) and (max-aspect-ratio: 1/1)`), is capped at 34rem
-wide and centred (`--W`), and landscape phones use the desktop layout. `viewport-fit=cover` plus `env(safe-area-inset-*)`
-keep content clear of the notch.
+Animations that only change a custom property (`calm`, `calm-m`, `walk-on`, `pace-on`) are not run by the CSS engine
+in `sd-poly`. `sd.js` sets `--amp`, `--walk` and `--pace` inline from the scroll position instead, because Firefox does
+not re-read `var()` inside other animations' keyframes when such a property is animated.
+
+## Design
+
+- Theme: light, locked. Radius: all-sharp (0).
+- Palette (see the custom properties at the top of `styles.css`): `--accent #a85a2c` sampled from the robot arms in
+  the hero render, plus `--s2 #2d5f78`, `--s3 #8d7230` and `--s4 #4f7f48` for the parts. All under 80% saturation,
+  text contrast at least 4.4:1.
+- Type: Geist variable, self-hosted. No third-party requests on any page.
+
+## Known limitations
+
+- iPhone Chrome in landscape has rotation and notch quirks that come from Chrome on iOS.
+- On iPad landscape the Plan / Adapt / Assemble caption can run into the header's "n" and "Contact us".
+- On mobile Safari the top robot part is sometimes visible before scrolling.
+- The reduced-motion / no-JavaScript fallback is a plain page without the drawing.
+- Android and iOS versions older than the ones tested (iOS 26 Safari, iPad Safari, Mac Safari 18.6 and Chrome,
+  Firefox on Ubuntu) have not been checked.
+- `noindex` is still on in `index.html`. When it comes off, add `robots.txt` and a sitemap.
