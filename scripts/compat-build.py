@@ -159,9 +159,11 @@ def build_css(css):
 
 
 def build_html(h):
-    h = re.sub(re.escape(HEAD_START) + r'.*?' + re.escape(HEAD_END) + r'\n?', '', h, flags=re.S)
+    h = re.sub(r'\n[ \t]*' + re.escape(HEAD_START) + r'.*?' + re.escape(HEAD_END), '', h, flags=re.S)
     h = re.sub(re.escape(BODY_START) + r'.*?' + re.escape(BODY_END) + r'\n?', '', h, flags=re.S)
-    h = h.replace('<head>', '<head>\n  ' + HEAD_START + '\n' + HEAD + '\n  ' + HEAD_END, 1)
+    vp = '<meta name="viewport" content="width=device-width, initial-scale=1">'
+    assert vp in h, 'viewport meta not found'
+    h = h.replace(vp, vp + '\n  ' + HEAD_START + '\n' + HEAD + '\n  ' + HEAD_END, 1)   # after charset + viewport
     h = h.replace('</body>', BODY_START + '\n' + BODY + '\n' + BODY_END + '\n</body>', 1)
     return h
 

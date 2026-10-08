@@ -3,6 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- SD-HEAD-START -->
+<script>
+/* Pick how the drawing runs: native scroll-driven animation, the scripted version, or the plain static page. */
+(function () {
+  var cl = document.documentElement.classList;
+  try {
+    var q = location.search, force = (/[?&]mode=(static|polytest)\b/.exec(q) || [])[1];
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var ok = !!(window.CSS && CSS.supports);
+    var native = ok && CSS.supports('animation-timeline', 'view()') && CSS.supports('animation-timeline', 'scroll()');
+    var poly = ok && 'getAnimations' in Element.prototype && !!CSS.registerProperty &&
+      CSS.supports('offset-path', 'path("M0 0")') && CSS.supports('animation-play-state', 'paused');
+    var m = reduce || force === 'static' ? 'static' : force === 'polytest' ? (poly ? 'poly' : 'static') : native ? 'native' : poly ? 'poly' : 'static';
+    // the scripted mode starts as the safe static page and switches on only once assets/sd.js has really built it
+    if (m === 'poly') { cl.add('sd-static'); cl.add('sd-want-poly'); } else cl.add('sd-' + m);
+  } catch (e) { cl.add('sd-static'); }
+})();
+</script>
+  <!-- SD-HEAD-END -->
   <title>Novara Robotics | Any product, assembled from its CAD</title>
   <meta name="description" content="Novara turns CAD files into finished products through flexible robot assembly. The same robot cells, any product.">
   <link rel="canonical" href="https://novararobotics.ai/">
@@ -159,5 +178,8 @@
   v.addEventListener('timeupdate', tick); v.addEventListener('seeked', tick); tick();
 })();
 </script>
+<!-- SD-BODY-START -->
+<script src="./assets/sd.js" defer></script>
+<!-- SD-BODY-END -->
 </body>
 </html>
