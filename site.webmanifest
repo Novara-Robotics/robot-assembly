@@ -1,7 +1,7 @@
 {
   "name": "Novara Robotics",
   "short_name": "Novara",
-  "description": "Novara turns CAD files into finished products through flexible robot assembly.",
+  "description": "Novara is a robotic contract assembler: we plan from your CAD, run the robot cells and deliver finished units.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#fcfcfc",

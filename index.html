@@ -21,14 +21,14 @@
 })();
 </script>
   <!-- SD-HEAD-END -->
-  <title>Novara Robotics | Any product, assembled from its CAD</title>
-  <meta name="description" content="Novara turns CAD files into finished products through flexible robot assembly. The same robot cells, any product.">
+  <title>Novara Robotics | Robotic contract assembly</title>
+  <meta name="description" content="Novara is a robotic contract assembler. Send us your product and CAD; we plan the build, run the robot cells and deliver finished units.">
   <link rel="canonical" href="https://novararobotics.ai/">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#fcfcfc">
   <meta property="og:site_name" content="Novara Robotics">
-  <meta property="og:title" content="Novara Robotics | Any product, assembled from its CAD">
-  <meta property="og:description" content="Novara turns CAD files into finished products through flexible robot assembly. The same robot cells, any product.">
+  <meta property="og:title" content="Novara Robotics | Robotic contract assembly">
+  <meta property="og:description" content="Novara is a robotic contract assembler. Send us your product and CAD; we plan the build, run the robot cells and deliver finished units.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://novararobotics.ai/">
   <meta property="og:image" content="https://novararobotics.ai/assets/og-share.jpg">
@@ -37,8 +37,8 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Six robot arms assembling a drone, a robot arm and a bearing on one line, with the words: Any product, assembled from its CAD.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Novara Robotics | Any product, assembled from its CAD">
-  <meta name="twitter:description" content="Novara turns CAD files into finished products through flexible robot assembly. The same robot cells, any product.">
+  <meta name="twitter:title" content="Novara Robotics | Robotic contract assembly">
+  <meta name="twitter:description" content="Novara is a robotic contract assembler. Send us your product and CAD; we plan the build, run the robot cells and deliver finished units.">
   <meta name="twitter:image" content="https://novararobotics.ai/assets/og-share.jpg">
   <meta name="twitter:image:alt" content="Six robot arms assembling a drone, a robot arm and a bearing on one line, with the words: Any product, assembled from its CAD.">
   <link rel="icon" href="./assets/favicon-96.png" type="image/png" sizes="96x96">
@@ -59,8 +59,7 @@
   <section class="film">
     <video src="./assets/hero.mp4" poster="./assets/hero-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Six robot arms assembling a drone, a robot arm and a bearing along one conveyor line"></video>
 <div class="statement">
-<p class="st-main">Any product,<br>assembled from its CAD.</p>
-<div class="st-cap" aria-hidden="true"><span data-from="0.3" data-to="2.8">Three cells. Three different products.</span><span data-from="3" data-to="6.5">New products. Same robot cells.</span></div>
+<p class="st-main">Contract assembly,<br>done by robots.</p>
 </div>
   </section>
 
@@ -149,15 +148,15 @@
       <div class="say closing" style="--at:94.1%;--at-m:94.7%"><h1>The future of manufacturing.</h1></div>
       <div class="say left c1" style="--at:21.9%">
         <h2>Plan</h2>
-        <p class="fact">Our software turns CAD files into assembly sequences and robot motions.</p>
+        <p class="fact">We start from your CAD. Our software designs how your product gets assembled, step by step, and how the robots carry it out.</p>
       </div>
       <div class="say right c2" style="--at:45.6%">
         <h2>Adapt</h2>
-        <p class="fact">The same robot cells build different products with no custom line for each.</p>
+        <p class="fact">We pick the right tool for every part, balancing speed and precision, so the same robot cells adapt to any product.</p>
       </div>
       <div class="say left c3" style="--at:68.3%">
         <h2>Assemble</h2>
-        <p class="fact">Task-specific routines turn those plans into precisely assembled products.</p>
+        <p class="fact">Task-specific routines turn the plan into finished products, assembled to spec and delivered to you.</p>
       </div>
   </section>
 </main>
@@ -168,15 +167,6 @@
   <p class="legal-links"><a href="https://www.linkedin.com/company/novara-robotics" target="_blank" rel="noopener">LinkedIn</a> <a href="./privacy.html">Privacy</a> <a href="./terms.html">Terms</a></p>
 </footer>
 
-<script>
-// Captions follow the film: each span shows while the video is inside its data-from..data-to seconds.
-(() => {
-  const v = document.querySelector('.film video'), caps = [...document.querySelectorAll('.st-cap span')];
-  if (!v || !caps.length) return;
-  const tick = () => caps.forEach((c) => c.classList.toggle('on', v.currentTime >= +c.dataset.from && v.currentTime < +c.dataset.to));
-  v.addEventListener('timeupdate', tick); v.addEventListener('seeked', tick); tick();
-})();
-</script>
 <!-- SD-BODY-START -->
 <script src="./assets/sd.js" defer></script>
 <!-- SD-BODY-END -->

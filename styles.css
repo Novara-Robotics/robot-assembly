@@ -1865,9 +1865,6 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 2px 18px rgba(0, 0, 0, 0.45);
 }
 .st-main { margin: 0; font-size: clamp(1.55rem, 2.7vw, 2.5rem); line-height: 1.1; font-weight: 500; letter-spacing: -0.03em; }
-.st-cap { display: grid; margin-top: 14px; font-size: clamp(1.05rem, 1.4vw, 1.25rem); font-weight: 500; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 10px rgba(0, 0, 0, 0.5); }
-.st-cap span { grid-area: 1 / 1; opacity: 0; transition: opacity 450ms var(--ease); }
-.st-cap span.on { opacity: 1; }
 @media (max-width: 900px) and (max-aspect-ratio: 1/1) {
   .statement { right: 20px; bottom: 36px; }
   .st-main { font-size: clamp(1.4rem, 6.2vw, 2rem); }
@@ -1892,7 +1889,6 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   .film video { height: 30svh; min-height: 200px; object-position: 22% 50%; }
   .statement { position: static; animation: none; opacity: 1; padding: 26px 20px 6px; color: var(--ink); text-shadow: none; }
   .st-main { font-size: clamp(1.7rem, 7.4vw, 2.2rem); }
-  .st-cap { color: var(--mute); text-shadow: none; font-size: 1.02rem; min-height: 3.2em; }
 }
 /* footer links on touch screens: visible as links, bigger to hit, copper while pressed */
 @media (max-width: 900px) and (max-aspect-ratio: 1/1) {
