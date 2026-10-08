@@ -88,3 +88,10 @@ script picks one of three modes from the browser alone and puts it on `<html>` a
   script, or a failed or blocked driver.
 
 `scripts/sd.js` is the source of `assets/sd.js`; run the build script after editing it or `styles.css`.
+
+Notes on the scripted mode: animations that only change a custom property (`calm`, `calm-m`, `walk-on`, `pace-on`) are not
+run by the CSS engine in this mode. `sd.js` sets `--amp`, `--walk` and `--pace` inline from the scroll position, because
+Firefox does not re-read `var()` inside other animations' keyframes when such a property is animated. The phone layout
+applies only to portrait screens up to 900px wide (`(max-width: 900px) and (max-aspect-ratio: 1/1)`), is capped at 34rem
+wide and centred (`--W`), and landscape phones use the desktop layout. `viewport-fit=cover` plus `env(safe-area-inset-*)`
+keep content clear of the notch.

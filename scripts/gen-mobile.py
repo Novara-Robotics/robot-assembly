@@ -110,7 +110,8 @@ capcss=''.join(f'  .line-m ~ .say.{n} {{ animation-range: contain {pct(a):.1f}% 
 block=f'''/* MOBILE-START (generated) */
 .line-m {{ display: none; }}
 .trail-fade {{ display: none; }}
-@media (max-width: 900px) {{
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) {{
+  html {{ --W: min(34rem, 100vw - 28px); }}
   .line-d {{ display: none; }}
   .trail-fade-d {{ display: none; }}
   .line-m {{ display: block; }}
@@ -121,7 +122,7 @@ block=f'''/* MOBILE-START (generated) */
   .say.closing {{ position: absolute; top: var(--at-m); transform: translateY(-50%); left: 0; width: 100%; max-width: none; margin: 0; }}
   .say.closing h1 {{ font-size: clamp(2.3rem, 11vw, 3.4rem); }}
 }}
-@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {{
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) and (prefers-reduced-motion: no-preference) {{
   @supports (animation-timeline: view()) {{
     .line-m .l1 {{ animation-name: lane-m-1; animation-range: cover 0% contain {PM}%; }}
     .line-m .l2 {{ animation-name: lane-m-2; animation-range: cover 0% contain {PM}%; }}
@@ -138,15 +139,15 @@ block=f'''/* MOBILE-START (generated) */
     }}
     /* fade the lines out towards the top of the screen: a fixed page-coloured gradient between the line layer
        and the layer above it. Same stops and place as the old mask (fully faded above a, 22% visible at the
-       middle stop, fully visible below b); the mask sat at 100dvh minus 1.8867 / 1.0867 flow widths (W = 100vw - 28px). */
+       middle stop, fully visible below b); the mask sat at 100dvh minus 1.8867 / 1.0867 flow widths (W = the flow width, --W). */
     .trail-fade {{
-      display: block; position: fixed; top: 0; left: 0; right: 0; height: calc(100dvh - 1.0867 * (100vw - 28px)); pointer-events: none;
-      background: linear-gradient(to bottom, var(--bg) calc(100dvh - 1.8867 * (100vw - 28px)), rgb(252 252 252 / 0.78) calc(100dvh - 1.4067 * (100vw - 28px)), rgb(252 252 252 / 0) calc(100dvh - 1.0867 * (100vw - 28px)));
+      display: block; position: fixed; top: 0; left: 0; right: 0; height: calc(100dvh - 1.0867 * var(--W)); pointer-events: none;
+      background: linear-gradient(to bottom, var(--bg) calc(100dvh - 1.8867 * var(--W)), rgb(252 252 252 / 0.78) calc(100dvh - 1.4067 * var(--W)), rgb(252 252 252 / 0) calc(100dvh - 1.0867 * var(--W)));
       opacity: 0; animation: trail-fade-in linear both; animation-timeline: --fl; animation-range: cover 4% cover 6%;
     }}
     /* on a phone the captions sit just under the header and change as the parts move on */
     .say.c1, .say.c2, .say.c3 {{
-      position: fixed; top: 72px; bottom: auto; left: 20px; right: 20px; width: auto; margin: 0; transform: none;
+      position: fixed; top: 72px; bottom: auto; left: max(20px, calc((100vw - 34rem) / 2)); right: max(20px, calc((100vw - 34rem) / 2)); width: auto; margin: 0; transform: none;
       padding: 14px 0 34px; background: linear-gradient(to bottom, var(--bg) 62%, transparent);
       animation: cap linear both; animation-timeline: --fl;
     }}
@@ -175,7 +176,7 @@ block=f'''/* MOBILE-START (generated) */
 }}
 {kfs}/* MOBILE-END */
 '''
-c=re.sub(r'/\* MOBILE-START.*?MOBILE-END \*/\n','',c,flags=re.S).rstrip('\n')+'\n\n'+block
+c=re.sub(r'\n*/\* MOBILE-START.*?MOBILE-END \*/\n*','\n',c,flags=re.S).rstrip('\n')+'\n\n'+block
 open('styles.css','w').write(c)
 print('PM',PM,{n:(round(pct(a),1),round(pct(b),1)) for n,(a,b) in caps.items()})
 import subprocess,sys

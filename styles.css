@@ -41,14 +41,14 @@ body {
 img, video, svg { display: block; max-width: 100%; }
 a { color: inherit; }
 h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
-.wrap { width: min(1180px, 100% - 56px); margin: 0 auto; }
+.wrap { --g: 28px; --el: max(var(--g), env(safe-area-inset-left, 0px)); --er: max(var(--g), env(safe-area-inset-right, 0px)); width: min(1180px, 100% - var(--el) - var(--er)); margin-left: max(var(--el), calc((100% - 1180px) / 2)); margin-right: max(var(--er), calc((100% - 1180px) / 2)); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 /* top bar: the mark, and one plain-text link. No box, no chrome. */
 .topbar {
   position: fixed; z-index: 10; top: 0; left: 0; right: 0;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 22px clamp(20px, 4vw, 44px);
+  padding: 22px max(clamp(20px, 4vw, 44px), env(safe-area-inset-right, 0px)) 22px max(clamp(20px, 4vw, 44px), env(safe-area-inset-left, 0px));
   pointer-events: none; mix-blend-mode: difference;
 }
 .topbar > * { pointer-events: auto; }
@@ -91,7 +91,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 /* ---------- the line ----------
    One SVG for the whole journey, so each part can travel a single unbroken path. Three
    parts, start to finish; they meet, become one, and that one leaves. */
-.flow { position: relative; width: min(1320px, 100% - 48px); margin: 0 auto; }
+.flow { position: relative; --g: 24px; --el: max(var(--g), env(safe-area-inset-left, 0px)); --er: max(var(--g), env(safe-area-inset-right, 0px)); width: min(1320px, 100% - var(--el) - var(--er)); margin-left: max(var(--el), calc((100% - 1320px) / 2)); margin-right: max(var(--er), calc((100% - 1320px) / 2)); }
 .trail-fade-d { display: none; }
 .line-d-top { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
 .line { pointer-events: none; display: block; width: 100%; height: auto; color: var(--line); overflow: visible; }
@@ -1849,10 +1849,10 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 }
 
 /* ---------- responsive ---------- */
-@media (max-width: 900px) {
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) {
   .topbar { padding: 16px 18px; }
   .hero { width: min(1240px, 100% - 36px); }
-  .flow { width: min(1320px, 100% - 28px); }
+  .flow { --g: 14px; width: min(34rem, 100% - var(--el) - var(--er)); margin-left: max(var(--el), calc((100% - 34rem) / 2)); margin-right: max(var(--er), calc((100% - 34rem) / 2)); }
   .say { position: static; transform: none; width: 100%; margin: 0 0 20px; }
   .say.left, .say.right { left: auto; right: auto; }
 }
@@ -1860,7 +1860,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 /* ---------- film ---------- */
 .film { position: relative; background: var(--ink); }
 .statement {
-  position: absolute; z-index: 1; right: clamp(24px, 4vw, 56px); bottom: clamp(36px, 8vh, 84px);
+  position: absolute; z-index: 1; right: max(clamp(24px, 4vw, 56px), env(safe-area-inset-right, 0px)); bottom: clamp(36px, 8vh, 84px);
   color: #fff; text-align: left;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 2px 18px rgba(0, 0, 0, 0.45);
 }
@@ -1868,7 +1868,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 .st-cap { display: grid; margin-top: 14px; font-size: clamp(1.05rem, 1.4vw, 1.25rem); font-weight: 500; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 10px rgba(0, 0, 0, 0.5); }
 .st-cap span { grid-area: 1 / 1; opacity: 0; transition: opacity 450ms var(--ease); }
 .st-cap span.on { opacity: 1; }
-@media (max-width: 900px) {
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) {
   .statement { right: 20px; bottom: 36px; }
   .st-main { font-size: clamp(1.4rem, 6.2vw, 2rem); }
 }
@@ -1882,7 +1882,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 
 
 /* ---------- phone (<= 900px): hero, header, footer ---------- */
-@media (max-width: 900px) {
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) {
   /* header: always dark, on a soft page-coloured fade so text dissolves instead of colliding with it */
   .topbar { mix-blend-mode: normal; background: linear-gradient(to bottom, var(--bg) 60%, transparent); padding-bottom: 26px; }
   .topbar .brand, .topbar .contact { animation: none; color: var(--ink); text-shadow: none; }
@@ -1895,7 +1895,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   .st-cap { color: var(--mute); text-shadow: none; font-size: 1.02rem; min-height: 3.2em; }
 }
 /* footer links on touch screens: visible as links, bigger to hit, copper while pressed */
-@media (max-width: 900px) {
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) {
   .footer .mail { display: inline-block; padding: 8px 4px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: rgba(17, 17, 19, 0.3); -webkit-tap-highlight-color: transparent; }
   .footer .legal-links { gap: 6px; font-size: 0.95rem; }
   .footer .legal-links a { padding: 12px 10px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: rgba(90, 95, 102, 0.4); -webkit-tap-highlight-color: transparent; }
@@ -1912,7 +1912,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 
 /* ---------- footer ---------- */
 .footer {
-  width: min(1320px, 100% - 48px); margin: 0 auto;
+  --g: 24px; --el: max(var(--g), env(safe-area-inset-left, 0px)); --er: max(var(--g), env(safe-area-inset-right, 0px)); width: min(1320px, 100% - var(--el) - var(--er)); margin-left: max(var(--el), calc((100% - 1320px) / 2)); margin-right: max(var(--er), calc((100% - 1320px) / 2));
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px;
   padding: clamp(40px, 6vh, 64px) 0;
 }
@@ -1933,7 +1933,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 
 /* ---------- responsive: explicit collapse ---------- */
 @media (max-width: 760px) {
-  .wrap { width: min(1180px, 100% - 32px); }
+  .wrap { --g: 16px; }
   .brand { top: 16px; }
 }
 
@@ -1948,7 +1948,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 .legal-top {
   position: fixed; z-index: 10; top: 0; left: 0; right: 0;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 22px clamp(20px, 4vw, 44px) 34px;
+  padding: 22px max(clamp(20px, 4vw, 44px), env(safe-area-inset-right, 0px)) 34px max(clamp(20px, 4vw, 44px), env(safe-area-inset-left, 0px));
   background: linear-gradient(to bottom, var(--bg) 62%, transparent);
 }
 .legal-top .brand { color: var(--ink); }
@@ -1962,10 +1962,18 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 .legal a { color: var(--accent); text-underline-offset: 3px; }
 .legal .meta { font-size: 0.82rem; margin: 0 0 6px; }
 
+
+/* short landscape phones: a tighter footer and a smaller closing line, so the closing line clears the header at the end of the page */
+@media (max-height: 520px) and (min-aspect-ratio: 10001/10000) {
+  .footer { padding-block: 12px; }
+  .say.closing h1 { font-size: clamp(1.8rem, 9vh, 3.2rem); }
+}
+
 /* MOBILE-START (generated) */
 .line-m { display: none; }
 .trail-fade { display: none; }
-@media (max-width: 900px) {
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) {
+  html { --W: min(34rem, 100vw - 28px); }
   .line-d { display: none; }
   .trail-fade-d { display: none; }
   .line-m { display: block; }
@@ -1976,7 +1984,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   .say.closing { position: absolute; top: var(--at-m); transform: translateY(-50%); left: 0; width: 100%; max-width: none; margin: 0; }
   .say.closing h1 { font-size: clamp(2.3rem, 11vw, 3.4rem); }
 }
-@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) and (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .line-m .l1 { animation-name: lane-m-1; animation-range: cover 0% contain 77.3%; }
     .line-m .l2 { animation-name: lane-m-2; animation-range: cover 0% contain 77.3%; }
@@ -1993,15 +2001,15 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
     }
     /* fade the lines out towards the top of the screen: a fixed page-coloured gradient between the line layer
        and the layer above it. Same stops and place as the old mask (fully faded above a, 22% visible at the
-       middle stop, fully visible below b); the mask sat at 100dvh minus 1.8867 / 1.0867 flow widths (W = 100vw - 28px). */
+       middle stop, fully visible below b); the mask sat at 100dvh minus 1.8867 / 1.0867 flow widths (W = the flow width, --W). */
     .trail-fade {
-      display: block; position: fixed; top: 0; left: 0; right: 0; height: calc(100dvh - 1.0867 * (100vw - 28px)); pointer-events: none;
-      background: linear-gradient(to bottom, var(--bg) calc(100dvh - 1.8867 * (100vw - 28px)), rgb(252 252 252 / 0.78) calc(100dvh - 1.4067 * (100vw - 28px)), rgb(252 252 252 / 0) calc(100dvh - 1.0867 * (100vw - 28px)));
+      display: block; position: fixed; top: 0; left: 0; right: 0; height: calc(100dvh - 1.0867 * var(--W)); pointer-events: none;
+      background: linear-gradient(to bottom, var(--bg) calc(100dvh - 1.8867 * var(--W)), rgb(252 252 252 / 0.78) calc(100dvh - 1.4067 * var(--W)), rgb(252 252 252 / 0) calc(100dvh - 1.0867 * var(--W)));
       opacity: 0; animation: trail-fade-in linear both; animation-timeline: --fl; animation-range: cover 4% cover 6%;
     }
     /* on a phone the captions sit just under the header and change as the parts move on */
     .say.c1, .say.c2, .say.c3 {
-      position: fixed; top: 72px; bottom: auto; left: 20px; right: 20px; width: auto; margin: 0; transform: none;
+      position: fixed; top: 72px; bottom: auto; left: max(20px, calc((100vw - 34rem) / 2)); right: max(20px, calc((100vw - 34rem) / 2)); width: auto; margin: 0; transform: none;
       padding: 14px 0 34px; background: linear-gradient(to bottom, var(--bg) 62%, transparent);
       animation: cap linear both; animation-timeline: --fl;
     }
@@ -3588,6 +3596,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 /* MOBILE-END */
 /* SD-COMPAT-START (generated by scripts/compat-build.py) */
 @property --sd-range { syntax: "*"; inherits: false; }
+@property --sd-vars { syntax: "*"; inherits: false; }
 @keyframes sd-probe { to { opacity: 0.02; } }
 /* scroll-driven rules, scripted (html.sd-poly); animation-range is stored as --sd-range */
   html.sd-poly .trail-fade-d {
@@ -3615,13 +3624,14 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
   html.sd-poly .part {
-      animation-name: ride-a, calm; animation-timing-function: linear, linear;
+      animation-name: ride-a; animation-timing-function: linear, linear;
       animation-fill-mode: both; 
-      --sd-range: cover 0% contain 70.4%, cover 0% cover 4%;
+      --sd-range: cover 0% contain 70.4%;
+      --sd-vars: --amp 1 0 cover 0% cover 4%;
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
-  html.sd-poly .p-b { animation-name: ride-b, calm; }
-  html.sd-poly .p-c { animation-name: ride-c, calm; }
+  html.sd-poly .p-b { animation-name: ride-b; }
+  html.sd-poly .p-c { animation-name: ride-c; }
   html.sd-poly .part .shape {
       animation-name: solidify; animation-timing-function: ease-out;
       animation-fill-mode: both; 
@@ -3643,12 +3653,13 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
   html.sd-poly .made {
-      animation-name: ride-out, arrive, walk-on, pace-on; animation-timing-function: linear;
+      animation-name: ride-out, arrive; animation-timing-function: linear;
       animation-fill-mode: both; 
-      --sd-range: contain 70.4% contain 98%, contain 70.4% contain 70.6%, contain 70.4% contain 72%, contain 93% contain 97%;
+      --sd-range: contain 70.4% contain 98%, contain 70.4% contain 70.6%;
+      --sd-vars: --walk 0 1 contain 70.4% contain 72%, --pace 0 1 contain 93% contain 97%;
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
-@media (max-width: 900px) {
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) {
   html.sd-poly .trail-fade-d { display: none; }   /* the desktop fade must not leak onto phones */
   html.sd-poly .line-m .l1 { animation-name: lane-m-1; --sd-range: cover 0% contain 77.3%;
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
@@ -3659,11 +3670,12 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
   html.sd-poly .line-m .l3 { animation-name: lane-m-3; --sd-range: cover 0% contain 77.3%;
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
-  html.sd-poly .line-m .part { animation-name: ride-a-m, calm-m; --sd-range: cover 0% contain 77.3%, cover 0% cover 4%;
+  html.sd-poly .line-m .part { animation-name: ride-a-m; --sd-range: cover 0% contain 77.3%;
+      --sd-vars: --amp 0.5 0 cover 0% cover 4%;
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
-  html.sd-poly .line-m .p-b { animation-name: ride-b-m, calm-m; }
-  html.sd-poly .line-m .p-c { animation-name: ride-c-m, calm-m; }
+  html.sd-poly .line-m .p-b { animation-name: ride-b-m; }
+  html.sd-poly .line-m .p-c { animation-name: ride-c-m; }
   html.sd-poly .line-m .part .shape { --sd-range: contain 0% contain 4%;
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
@@ -3674,18 +3686,19 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
   html.sd-poly .line-m .made {
-      animation-name: ride-out-m, arrive, walk-on, pace-on;
-      --sd-range: contain 77.3% contain 98%, contain 77.3% contain 77.5%, contain 77.3% contain 78.9%, contain 93% contain 97%;
+      animation-name: ride-out-m, arrive;
+      --sd-range: contain 77.3% contain 98%, contain 77.3% contain 77.5%;
+      --sd-vars: --walk 0 1 contain 77.3% contain 78.9%, --pace 0 1 contain 93% contain 97%;
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
   html.sd-poly .trail-fade {
-      display: block; position: fixed; top: 0; left: 0; right: 0; height: calc(100dvh - 1.0867 * (100vw - 28px)); pointer-events: none;
-      background: linear-gradient(to bottom, var(--bg) calc(100dvh - 1.8867 * (100vw - 28px)), rgb(252 252 252 / 0.78) calc(100dvh - 1.4067 * (100vw - 28px)), rgb(252 252 252 / 0) calc(100dvh - 1.0867 * (100vw - 28px)));
+      display: block; position: fixed; top: 0; left: 0; right: 0; height: calc(100dvh - 1.0867 * var(--W)); pointer-events: none;
+      background: linear-gradient(to bottom, var(--bg) calc(100dvh - 1.8867 * var(--W)), rgb(252 252 252 / 0.78) calc(100dvh - 1.4067 * var(--W)), rgb(252 252 252 / 0) calc(100dvh - 1.0867 * var(--W)));
       opacity: 0; animation: trail-fade-in linear both;  --sd-range: cover 4% cover 6%;
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
     }
   html.sd-poly .say.c1, html.sd-poly .say.c2, html.sd-poly .say.c3 {
-      position: fixed; top: 72px; bottom: auto; left: 20px; right: 20px; width: auto; margin: 0; transform: none;
+      position: fixed; top: 72px; bottom: auto; left: max(20px, calc((100vw - 34rem) / 2)); right: max(20px, calc((100vw - 34rem) / 2)); width: auto; margin: 0; transform: none;
       padding: 14px 0 34px; background: linear-gradient(to bottom, var(--bg) 62%, transparent);
       animation: cap linear both;
       animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;
@@ -3704,7 +3717,7 @@ h1, h2 { margin: 0; font-weight: 500; letter-spacing: -0.03em; }
 }
 
 /* ---- header in modes without native scroll timelines: white over the film, dark once past it (set by sd.js) ---- */
-@media (min-width: 901px) {
+@media (min-width: 901px), (min-aspect-ratio: 10001/10000) {
   html:not(.sd-native) .topbar { mix-blend-mode: normal; }
   html:not(.sd-native) .topbar .brand svg { filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.35)); transition: filter 250ms var(--ease); }
   html:not(.sd-native) .topbar .brand, html:not(.sd-native) .topbar .contact { transition: color 250ms var(--ease), text-shadow 250ms var(--ease); }
@@ -3731,6 +3744,6 @@ html:not(.sd-native):not(.sd-poly) .say.c3 {
 html:not(.sd-native):not(.sd-poly) .flow { display: flex; flex-direction: column; }
 html:not(.sd-native):not(.sd-poly) .say.closing { order: 10; margin: clamp(72px, 14vh, 140px) 0 clamp(24px, 6vh, 56px) !important; }
 html:not(.sd-native):not(.sd-poly) .say.closing h1 { max-width: 12ch; font-size: clamp(2.4rem, 8vw, 4.6rem); }
-@media (max-width: 900px) { html:not(.sd-native):not(.sd-poly) .film { min-height: 0; padding-bottom: 8px; } }
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) { html:not(.sd-native):not(.sd-poly) .film { min-height: 0; padding-bottom: 8px; } }
 
 /* SD-COMPAT-END */

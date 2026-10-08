@@ -81,6 +81,32 @@ def split_rules(inner):
     return rules
 
 
+# Animations that only change a custom property are driven from sd.js as inline custom properties instead:
+# Firefox does not re-read var() inside the keyframes of other animations when such a property is animated.
+VARS = {'calm': ('--amp', '1', '0'), 'calm-m': ('--amp', '0.5', '0'), 'walk-on': ('--walk', '0', '1'), 'pace-on': ('--pace', '0', '1')}
+
+
+def split_vars(body):
+    mn = re.search(r'animation-name:\s*([^;]+);', body)
+    if not mn: return body
+    names = [n.strip() for n in mn.group(1).split(',')]
+    if not any(n in VARS for n in names): return body
+    mr = re.search(r'--sd-range:\s*([^;]+);', body)
+    ranges = [r.strip() for r in mr.group(1).split(',')] if mr else None
+    keep_n, keep_r, vars_ = [], [], []
+    for i, n in enumerate(names):
+        if n in VARS:
+            if ranges is not None:
+                prop, a, b = VARS[n]; vars_.append('%s %s %s %s' % (prop, a, b, ranges[i]))
+        else:
+            keep_n.append(n)
+            if ranges is not None: keep_r.append(ranges[i])
+    body = body.replace(mn.group(0), 'animation-name: %s;' % ', '.join(keep_n))
+    if mr:
+        body = body.replace(mr.group(0), '--sd-range: %s;' % ', '.join(keep_r) + ('\n      --sd-vars: %s;' % ', '.join(vars_) if vars_ else ''))
+    return body
+
+
 def to_poly(inner):
     out = []
     for kind, sel, body in split_rules(inner):
@@ -91,6 +117,7 @@ def to_poly(inner):
         body = re.sub(r'view-timeline-[a-z]+:[^;]*;', '', body)
         had_range = 'animation-range:' in body
         body = re.sub(r'animation-range:([^;]*);', r'--sd-range:\1;', body)
+        body = split_vars(body)
         if had_timeline or had_range:
             body = body.rstrip() + '\n      animation-duration: 1s; animation-delay: 0s; animation-iteration-count: 1; animation-play-state: paused;\n    '
         if not body.strip(' \n;'):
@@ -102,7 +129,7 @@ def to_poly(inner):
 
 STATIC = '''
 /* ---- header in modes without native scroll timelines: white over the film, dark once past it (set by sd.js) ---- */
-@media (min-width: 901px) {
+@media (min-width: 901px), (min-aspect-ratio: 10001/10000) {
   html:not(.sd-native) .topbar { mix-blend-mode: normal; }
   html:not(.sd-native) .topbar .brand svg { filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.35)); transition: filter 250ms var(--ease); }
   html:not(.sd-native) .topbar .brand, html:not(.sd-native) .topbar .contact { transition: color 250ms var(--ease), text-shadow 250ms var(--ease); }
@@ -129,7 +156,7 @@ html:not(.sd-native):not(.sd-poly) .say.c3 {
 html:not(.sd-native):not(.sd-poly) .flow { display: flex; flex-direction: column; }
 html:not(.sd-native):not(.sd-poly) .say.closing { order: 10; margin: clamp(72px, 14vh, 140px) 0 clamp(24px, 6vh, 56px) !important; }
 html:not(.sd-native):not(.sd-poly) .say.closing h1 { max-width: 12ch; font-size: clamp(2.4rem, 8vw, 4.6rem); }
-@media (max-width: 900px) { html:not(.sd-native):not(.sd-poly) .film { min-height: 0; padding-bottom: 8px; } }
+@media (max-width: 900px) and (max-aspect-ratio: 1/1) { html:not(.sd-native):not(.sd-poly) .film { min-height: 0; padding-bottom: 8px; } }
 '''
 
 
@@ -146,10 +173,11 @@ def build_css(css):
     assert desktop and phone, 'could not find the two view() blocks'
     block = [CSS_START,
              '@property --sd-range { syntax: "*"; inherits: false; }',
+             '@property --sd-vars { syntax: "*"; inherits: false; }',
              '@keyframes sd-probe { to { opacity: 0.02; } }',
              '/* scroll-driven rules, scripted (html.sd-poly); animation-range is stored as --sd-range */',
              to_poly(desktop),
-             '@media (max-width: 900px) {',
+             '@media (max-width: 900px) and (max-aspect-ratio: 1/1) {',
              '  html.sd-poly .trail-fade-d { display: none; }   /* the desktop fade must not leak onto phones */',
              to_poly(phone),
              '}',
@@ -160,7 +188,7 @@ def build_css(css):
 def build_html(h):
     h = re.sub(r'\n[ \t]*' + re.escape(HEAD_START) + r'.*?' + re.escape(HEAD_END), '', h, flags=re.S)
     h = re.sub(re.escape(BODY_START) + r'.*?' + re.escape(BODY_END) + r'\n?', '', h, flags=re.S)
-    vp = '<meta name="viewport" content="width=device-width, initial-scale=1">'
+    vp = '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
     assert vp in h, 'viewport meta not found'
     h = h.replace(vp, vp + '\n  ' + HEAD_START + '\n' + HEAD + '\n  ' + HEAD_END, 1)   # after charset + viewport
     h = h.replace('</body>', BODY_START + '\n' + BODY + '\n' + BODY_END + '\n</body>', 1)

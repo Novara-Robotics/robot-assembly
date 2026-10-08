@@ -12,9 +12,13 @@
   var root = document.documentElement, cl = root.classList;
 
   var wantPoly = cl.contains('sd-want-poly');
+  function clearVars() {
+    for (var i = 0; i < vars.length; i++) vars[i].el.style.removeProperty(vars[i].prop);
+    vars = [];
+  }
   function toStatic() {
     cl.remove('sd-native'); cl.remove('sd-poly'); cl.add('sd-static'); wantPoly = false;
-    items = [];
+    items = []; clearVars();
     listen();
   }
   var listening = false;
@@ -26,7 +30,7 @@
   /* ---- header colour and the film dissolving (modes without native scroll timelines) ---- */
   var ticking = false;
   function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
-  function wide() { return window.matchMedia('(min-width: 901px)').matches; }
+  function wide() { return window.matchMedia('(min-width: 901px), (min-aspect-ratio: 10001/10000)').matches; }
   function chrome() {
     ticking = false;
     if (cl.contains('sd-native')) return;
@@ -44,7 +48,7 @@
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(function () { chrome(); drive(); }); } }
 
   /* ---- the driver for sd-poly ---- */
-  var items = [], flow = null, lastS = -1;
+  var items = [], vars = [], flow = null, lastS = -1;
   function parseRanges(str) {
     // "cover 0% contain 70.4%, cover 0% cover 4%"  ->  [[a,b],[c,d]]
     return str.split(',').map(function (part) {
@@ -52,8 +56,9 @@
       return m.length === 2 ? m : null;
     });
   }
+  var VARRE = /^(--[\w-]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(cover|contain)\s+(-?[\d.]+)%\s+(cover|contain)\s+(-?[\d.]+)%$/;
   function build() {
-    items = []; lastS = -1;
+    clearVars(); items = []; lastS = -1;
     flow = document.querySelector('.flow');
     if (!flow) return;
     var V = window.innerHeight, r = flow.getBoundingClientRect();
@@ -63,6 +68,15 @@
     var all = flow.querySelectorAll('*'), n = 0;
     for (var i = 0; i < all.length; i++) {
       var el = all[i], cs = getComputedStyle(el), rng = cs.getPropertyValue('--sd-range').trim();
+      var vstr = cs.getPropertyValue('--sd-vars').trim();
+      if (vstr) {
+        vstr.split(',').forEach(function (part) {
+          var m = VARRE.exec(part.trim()); if (!m) return;
+          var s0 = g[m[4]][0] + (g[m[4]][1] - g[m[4]][0]) * parseFloat(m[5]) / 100;
+          var s1 = g[m[6]][0] + (g[m[6]][1] - g[m[6]][0]) * parseFloat(m[7]) / 100;
+          if (s1 !== s0) { vars.push({ el: el, prop: m[1], from: parseFloat(m[2]), to: parseFloat(m[3]), s0: s0, s1: s1, last: -1 }); n++; }
+        });
+      }
       if (!rng) continue;
       var names = cs.animationName.split(',').map(function (s) { return s.trim(); });
       var ranges = parseRanges(rng);
@@ -88,6 +102,10 @@
     for (var i = 0; i < items.length; i++) {
       var it = items[i], p = clamp01((s - it.s0) / (it.s1 - it.s0));
       if (Math.abs(p - it.last) > 0.0002 || it.last < 0) { it.a.currentTime = p * 1000; it.last = p; }
+    }
+    for (var j = 0; j < vars.length; j++) {
+      var v = vars[j], q = clamp01((s - v.s0) / (v.s1 - v.s0));
+      if (Math.abs(q - v.last) > 0.0002 || v.last < 0) { v.el.style.setProperty(v.prop, (v.from + (v.to - v.from) * q).toFixed(4)); v.last = q; }
     }
   }
 
