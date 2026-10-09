@@ -115,27 +115,48 @@
     window.addEventListener('resize', function () { clearTimeout(start.t); start.t = setTimeout(function () { if (cl.contains('sd-poly')) { build(); drive(); } chrome(); }, 150); });
 
     if (wantPoly) {
-      try {
-        cl.remove('sd-static'); cl.add('sd-poly');
-        build();
-        if (!items.length) { toStatic(); }
-        else { drive(); }
-      } catch (e) { toStatic(); }
+      // Try now; if the page is not ready yet (stylesheet or layout not settled on a cold load), try again when the page
+      // has loaded and once more shortly after. Only then settle for the plain page. A first success never retries.
+      retry(function () {
+        try {
+          cl.remove('sd-static'); cl.add('sd-poly');
+          build();
+          if (items.length) { drive(); return true; }
+        } catch (e) {}
+        items = []; clearVars(); cl.remove('sd-poly'); cl.add('sd-static'); chrome();
+        return false;
+      }, toStatic);
       // geometry changes once fonts and the video have settled
       window.addEventListener('load', function () { if (cl.contains('sd-poly')) { build(); lastS = -1; drive(); chrome(); } });
     } else if (cl.contains('sd-native')) {
-      // make sure the browser really runs the timeline, not just parses it
-      try {
-        var p = document.createElement('div');
-        p.style.cssText = 'position:fixed;left:-9px;top:0;width:1px;height:1px;opacity:.01;pointer-events:none;animation:sd-probe 1s linear both;animation-timeline:scroll(root)';
-        document.body.appendChild(p);
-        var an = p.getAnimations();
-        var ok = an.length > 0 && (!window.ScrollTimeline || an[0].timeline instanceof window.ScrollTimeline);
-        document.body.removeChild(p);
-        if (!ok) toStatic();
-      } catch (e) { toStatic(); }
+      // make sure the browser really runs the timeline, not just parses it; the page keeps running natively until the
+      // last attempt has failed
+      retry(function () {
+        try {
+          var p = document.createElement('div');
+          p.style.cssText = 'position:fixed;left:-9px;top:0;width:1px;height:1px;opacity:.01;pointer-events:none;animation:sd-probe 1s linear both;animation-timeline:scroll(root)';
+          document.body.appendChild(p);
+          var an = p.getAnimations();
+          var ok = an.length > 0 && (!window.ScrollTimeline || an[0].timeline instanceof window.ScrollTimeline);
+          document.body.removeChild(p);
+          return ok;
+        } catch (e) { return false; }
+      }, toStatic);
     }
-   
+  }
+
+  // run check() now; on failure run it again once the page has loaded (or after 300 ms if it already has), then 1 s and
+  // 3 s later; call giveUp() if every attempt failed. A first success never retries.
+  function retry(check, giveUp) {
+    if (check()) return;
+    var waits = [1000, 3000];
+    function next() {
+      if (check()) return;
+      if (!waits.length) { giveUp(); return; }
+      setTimeout(next, waits.shift());
+    }
+    if (document.readyState === 'complete') setTimeout(next, 300);
+    else window.addEventListener('load', function () { setTimeout(next, 50); }, { once: true });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();

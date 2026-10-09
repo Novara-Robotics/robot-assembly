@@ -73,7 +73,8 @@ as a class. There are no URL overrides.
 - `sd-native`: the browser's own animation, unchanged (the original `@supports` blocks are untouched).
 - `sd-poly`: `assets/sd.js` pauses every CSS animation that carries a scroll range and sets its time from the scroll
   position, with the same cover/contain maths as the browser (checked against Chrome to four decimals). Keyframes and
-  easing stay in CSS. It starts as the static page and switches on only after the driver has really built itself.
+  easing stay in CSS. It starts as the static page and switches on only after the driver has really built itself. If the first attempt finds nothing (for example on a cold load before the styles have settled) it tries again after the page
+  has loaded, and 1 s and 3 s later, before settling for the plain page; the same retries guard the native-mode check.
 - `sd-static`: the plain page (video, statement, three sections, closing line, footer). Used for reduced motion, no
   script, or a failed or blocked driver.
 
