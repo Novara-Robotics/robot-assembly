@@ -20,6 +20,8 @@ The `.com` site (Deri) is a separate repo, `Novara-Robotics.github.io`, and neve
   `robot-assembly-demo` repo (`web/factory/`); the big data files (`scene.glb`, `traj.bin.gz`, `traj.json`) are
   generated there by `sim/scripts/18_export_web.py` from `trajectory.npz`, and are committed here as a backup.
 - `CNAME` - the custom domain for GitHub Pages. Keep it.
+- `_config.yml` - the list of files that stay in the repo but are not published on the website (this README, `scripts/`,
+  source artwork). Add any new developer-only file or folder to it, or it will be reachable at its address.
 
 ## The page
 

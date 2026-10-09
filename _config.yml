@@ -1,0 +1,6 @@
+# Files listed here stay in the repo but are NOT published on the website.
+# Add any new developer-only file or folder here (notes, scripts, source artwork).
+exclude:
+  - README.md
+  - scripts
+  - assets/mark.svg
